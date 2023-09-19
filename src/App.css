@@ -45,3 +45,25 @@
   height: 100%;
   z-index: -1;
 }
+
+/* App.css or Tailwind CSS classes */
+
+/* Add a class to make the container flex and occupy full height */
+.container-full-height {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+}
+
+/* Styles for the footer */
+footer {
+  margin-top: auto; /* Push the footer to the bottom */
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+/* Add a class to make text smaller if needed */
+.small {
+  font-size: 80%; /* Adjust the font size as needed */
+}

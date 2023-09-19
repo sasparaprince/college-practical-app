@@ -1,37 +1,37 @@
-import React, { useCallback } from "react";
-import Particles from "react-particles";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React,{useCallback} from 'react';
+import Particles from 'react-particles';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { loadSlim } from 'tsparticles-slim';
+import Home from './pages/Home';
+import './App.css';
+import List from './pages/List';
+import Navbar from './components/Navbar';
+import Practical from './pages/Practical';
+import Footer from './components/Footer';
 
-import { loadSlim } from "tsparticles-slim";
-import Home from "./pages/Home";
-import "./App.css";
-import List from "./pages/List";
-import Navbar from "./components/Navbar";
+const App = () => {
 
 
-
-export default function App() {
-  const particlesInit = useCallback(async engine => {
+  const particlesInit = useCallback(async (engine) => {
     console.log(engine);
     await loadSlim(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async container => {
+  const particlesLoaded = useCallback(async (container) => {
     await console.log(container);
   }, []);
 
   return (
     <>
-        <Navbar />
+    <div className="container-full-height">
 
+      <Navbar />
       <Router>
         <Routes>
-
-          <Route path='/' element={<Home />} />
-          <Route path='/list' element={<List />} />
-
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/practical/:srNo" element={<Practical />} />
         </Routes>
-
       </Router>
       <Particles
         id="tsparticles"
@@ -40,7 +40,7 @@ export default function App() {
         options={{
           background: {
             color: {
-              value: "#E3FDFD",
+              value: '#E3FDFD',
             },
           },
           fpsLimit: 120,
@@ -48,11 +48,11 @@ export default function App() {
             events: {
               onClick: {
                 enable: true,
-                mode: "push",
+                mode: 'push',
               },
               onHover: {
                 enable: true,
-                mode: "repulse",
+                mode: 'repulse',
               },
               resize: true,
             },
@@ -68,20 +68,20 @@ export default function App() {
           },
           particles: {
             color: {
-              value: "#000",
+              value: '#000',
             },
             links: {
-              color: "#000",
+              color: '#000',
               distance: 150,
               enable: true,
               opacity: 1,
               width: 1,
             },
             move: {
-              direction: "none",
+              direction: 'none',
               enable: true,
               outModes: {
-                default: "bounce",
+                default: 'bounce',
               },
               random: false,
               speed: 2,
@@ -98,7 +98,7 @@ export default function App() {
               value: 0.5,
             },
             shape: {
-              type: "circle",
+              type: 'circle',
             },
             size: {
               value: { min: 1, max: 5 },
@@ -107,6 +107,10 @@ export default function App() {
           detectRetina: true,
         }}
       />
-    </>
-  )
-}
+<Footer />
+</div>
+   </>
+  );
+};
+
+export default App;
