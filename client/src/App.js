@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { loadSlim } from 'tsparticles-slim';
 import Home from './pages/Home';
 import './App.css';
-import List from './pages/List';
+import List from './pages/Subjects';
 import Navbar from './components/Navbar';
 import Practical from './pages/Practical';
 import Footer from './components/Footer';
@@ -29,8 +29,8 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/practical/:srNo" element={<Practical />} />
+          <Route path="/Subject" element={<List />} />
+          <Route path="/subject/:srNo" element={<Practical />} />
         </Routes>
       </Router>
       <Particles

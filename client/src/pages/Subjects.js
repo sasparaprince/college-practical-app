@@ -1,7 +1,7 @@
 import React from 'react';
 import SubjectListing from '../components/SubjectListing';
 
-const List = () => {
+const Subject = () => {
   return (
     <div className="container mx-auto p-4">
     
@@ -13,4 +13,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default Subject;

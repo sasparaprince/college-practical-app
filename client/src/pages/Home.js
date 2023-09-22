@@ -1,7 +1,7 @@
 
 import coder from '../img/coder.png'
 import { Link } from "react-router-dom";
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 
 
 
@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <>
-          
+
 
             {/* The rest of your Home component content */}
             <header className="bg-opacity-0 py-5">
@@ -29,7 +29,7 @@ const Home = () => {
                                 <h1 className="text-4xl font-bold text-gray-900 mb-5 ">
                                     Practical Solutions for Every <span className="text-[#71C9CE] font-extrabold drop-shadow-xl">Student</span>
                                 </h1>
-                                <Link to={'/list'}>
+                                <Link to={'/subject'}>
                                     <button className="bg-white hover:bg-gray-500 hover:text-white shadow-xl text-gray-800 font-semibold w-[10rem] h-[3.4rem] py-2 px-4 border border-gray-400 rounded-xl">
                                         Button
                                     </button>
