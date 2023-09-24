@@ -1,14 +1,22 @@
 import React from 'react';
 import SubjectListing from '../components/SubjectListing';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Subject = () => {
   return (
-    <div className="container mx-auto p-4">
-    
+    <>
+      <Navbar />
+      <div className="container mx-auto p-4">
+
         <SubjectListing />
-    
 
       </div>
+      <Footer />
+
+    </>
+
+
 
   );
 };
