@@ -2,6 +2,8 @@
 import coder from '../img/coder.png'
 import { Link } from "react-router-dom";
 // import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 
 
@@ -10,6 +12,7 @@ const Home = () => {
 
     return (
         <>
+        <Navbar />
 
 
             {/* The rest of your Home component content */}
@@ -47,7 +50,7 @@ const Home = () => {
                 </div>
             </main>
 
-
+<Footer />
         </>
     )
 }
