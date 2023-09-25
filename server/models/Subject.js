@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 
 const subjectSchema = new mongoose.Schema({
-  name: {
+  subjectName: {
     type: String,
     required: true,
   },
-  description: String,
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  // Add more fields specific to the Subject model if needed.
 });
 
-module.exports = mongoose.model('Subject', subjectSchema);
+const Subject = mongoose.model('Subject', subjectSchema);
+
+module.exports = Subject;

@@ -8,7 +8,6 @@ const Practical = () => {
   return (
     <>
       <Navbar />
-
       <div>
         <PracticalListing />
       </div>

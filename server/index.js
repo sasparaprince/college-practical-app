@@ -1,36 +1,36 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path');
-
-const subjectsRouter = require('./routes/subject'); // Import the subjects route
+const cors = require('cors');
+const routes = require('./routes/routes');
 
 const app = express();
-
-
-// Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-// Handle all other routes by serving the index.html file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
-
+const PORT = process.env.PORT || 3001;
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace 'your-database-name' with your actual database name)
-mongoose.connect('mongodb://127.0.0.1:27017/college-practical', {
+mongoose.connect('mongodb+srv://admin-prince:Prince3252@cluster0.xkujutz.mongodb.net/college-practicals', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// Routes
-app.use('/api/subjects', subjectsRouter); // Use the subjects route for /api/subjects
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+// Use routes
+app.use('/api', routes);
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+//mongodb+srv://admin-prince:Prince3252@cluster0.xkujutz.mongodb.net/college-practicals
