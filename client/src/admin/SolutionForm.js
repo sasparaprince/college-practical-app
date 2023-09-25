@@ -5,7 +5,7 @@ const SolutionForm = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedSubjectId, setSelectedSubjectId] = useState('');
   const [practicals, setPracticals] = useState([]);
-  const [selectedPracticalId, setSelectedPracticalId] = useState('');
+  const [selectedPracticalAim, setSelectedPracticalAim] = useState(''); // Use Practical Aim as Practical Name
   const [solutionCode, setSolutionCode] = useState('');
   const [codeOutput, setCodeOutput] = useState('');
   const [explanation, setExplanation] = useState('');
@@ -38,10 +38,14 @@ const SolutionForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Find the selected practical object by its aim
+    const selectedPractical = practicals.find((practical) => practical.aim === selectedPracticalAim);
+
     // Make a POST request to create a solution
     axios.post('http://localhost:3001/api/solutions', {
       subjectId: selectedSubjectId,
-      practicalId: selectedPracticalId,
+      practicalId: selectedPractical._id, // Use Practical ID
+      practicalName: selectedPracticalAim, // Use Practical Aim as Practical Name
       solutionCode,
       codeOutput,
       explanation,
@@ -80,14 +84,14 @@ const SolutionForm = () => {
           <div className="mb-4">
             <label className="block text-white font-medium mb-2">Select a Practical</label>
             <select
-              value={selectedPracticalId}
-              onChange={(e) => setSelectedPracticalId(e.target.value)}
+              value={selectedPracticalAim}
+              onChange={(e) => setSelectedPracticalAim(e.target.value)}
               className="w-full p-2 bg-gray-200 rounded"
             >
               <option value="">Select a Practical</option>
               {practicals.length > 0 ? (
                 practicals.map((practical) => (
-                  <option key={practical._id} value={practical._id}>
+                  <option key={practical._id} value={practical.aim}>
                     {practical.aim}
                   </option>
                 ))

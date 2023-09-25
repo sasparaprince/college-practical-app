@@ -1,5 +1,3 @@
-// models/Solution.js
-
 const mongoose = require('mongoose');
 
 const solutionSchema = new mongoose.Schema({
@@ -11,6 +9,10 @@ const solutionSchema = new mongoose.Schema({
   practicalId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Practical', // Reference to the Practical model
+    required: true,
+  },
+  practicalName: {
+    type: String,
     required: true,
   },
   solutionCode: {

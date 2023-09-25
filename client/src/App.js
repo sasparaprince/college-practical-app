@@ -5,7 +5,7 @@ import { loadSlim } from 'tsparticles-slim';
 import Home from './pages/Home';
 import './App.css';
 import List from './pages/Subjects';
-import Practical from './pages/Practical';
+// import Practical from './pages/Practical';
 import PracticalListing from './components/PracticalListing';
 import SubjectForm from './admin/SubjectForm';
 import AdminDashboard from './admin/AdminDashboard';
@@ -46,10 +46,11 @@ const App = () => {
           <Route path="/admin/practicals" element={<PracticalForm />} />
           <Route path="/admin/solutions" element={<SolutionForm />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="solution/practicals/:solutionId" element={<Solution />} />
+          <Route path="/:subjectId/:practicalId/:solutionId" element={ <Solution />} />
+          {/* <Route path="/651140fbdc5dcf0fd703f478/651164a3d1d6a47b5657e80a/6511737c9a244194daba0cb8" element={ <Solution />} /> */}
+          
+        <Route path="/subject/:subjectId" element={<SubjectPracticals />} />
 
-          <Route path="/solution/:aim" element={<Solution />} /> {/* New route for solutions */}
-        <Route path="/subjects/:subjectId/practicals" component={SubjectPracticals} />
         </Routes>
         {showNavbarAndFooter && <Navbar />}
         {showNavbarAndFooter && <Footer />}

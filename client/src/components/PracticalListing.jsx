@@ -10,6 +10,16 @@ const SubjectPracticals = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // Initialize navigation function
 
+  const handleSolutionClick = (practicalId, solutionId) => {
+    // Ensure that solutionId is defined before navigating
+    if (solutionId) {
+      // Use the navigate function to go to the solution page
+      navigate(`/solution/${practicalId}/${solutionId}`);
+    } else {
+      console.error('Solution ID is undefined.');
+    }
+  };
+
   useEffect(() => {
     // Fetch subject practicals based on subjectId
     axios
@@ -29,10 +39,7 @@ const SubjectPracticals = () => {
   }, [subjectId]);
 
   // Function to handle the "Solution" button click
-  const handleSolutionClick = (practicalId, solutionId) => {
-    // Use the navigate function to go to the solution page
-    navigate(`/solution/${practicalId}/${solutionId}`);
-  };
+
 
   if (loading) {
     return <div>Loading...</div>;

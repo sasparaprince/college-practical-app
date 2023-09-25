@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const Subject = require('../models/Subject');
 const Practical = require('../models/Practical');
 const Solution = require('../models/Solution');
@@ -127,40 +126,40 @@ router.post('/', async (req, res) => {
     }
   });
   
-  // Get solutions for a specific subject and practical
-  router.get('/:subjectId/:practicalId', async (req, res) => {
-    try {
-      const { subjectId, practicalId } = req.params;
-      const solutions = await Solution.find({ subjectId, practicalId });
-      res.json(solutions);
-    } catch (error) {
-      console.error('Error fetching solutions:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
-  
-  // routes/solutions.js
 
 
-  router.get('/solutions/:solutionId', async (req, res) => {
-    const solutionId = req.params.solutionId;
-  
-    if (!mongoose.Types.ObjectId.isValid(solutionId)) {
-      return res.status(400).json({ error: 'Invalid solution ID' });
+
+
+// Define a route to get a specific solution by Subject ID, Practical ID, and Solution ID
+router.get('/solutions/:subjectId/:practicalId/:solutionId', async (req, res) => {
+  try {
+    const { subjectId, practicalId, solutionId } = req.params;
+
+    // Find a single solution that matches the provided IDs
+    const solution = await Solution.findOne({
+      subjectId,
+      practicalId,
+      _id: solutionId,
+    });
+
+    if (!solution) {
+      return res.status(404).json({ error: 'Solution not found' });
     }
+
+    res.json(solution);
+  } catch (error) {
+    console.error('Error fetching solution:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
+
   
-    try {
-      const solution = await Solution.findById(solutionId);
-  
-      if (!solution) {
-        return res.status(404).json({ error: 'Solution not found' });
-      }
-  
-      res.json(solution);
-    } catch (error) {
-      console.error('Error fetching solution:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+
+
 
 module.exports = router;
