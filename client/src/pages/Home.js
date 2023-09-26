@@ -12,7 +12,7 @@ const Home = () => {
 
     return (
         <>
-        <Navbar />
+            <Navbar />
 
 
             {/* The rest of your Home component content */}
@@ -29,14 +29,14 @@ const Home = () => {
                     <div className="order-2 md:order-1">
                         <div className="p-4 pl-0 md:p-10 md:mt-10 text-center md:text-left">
 
-                                <h1 className="text-4xl font-bold text-white ">
-                                    Practical Solutions for Every <span className="text-[#71C9CE] font-extrabold drop-shadow-lg">Student</span>
-                                </h1>
-                                <Link to={'/subject'}>
-                                    <button className="bg-white mt-5 hover:bg-gray-500 hover:text-white shadow-xl text-gray-800 font-semibold w-[10rem] h-[3.4rem] py-2 px-4 border border-gray-400  rounded-xl">
-                                        Button
-                                    </button>
-                                </Link>
+                            <h1 className="text-4xl font-bold text-white ">
+                                Practical Solutions for Every <span className="text-[#71C9CE] font-extrabold drop-shadow-lg">Student</span>
+                            </h1>
+                            <Link to={'/subject'}>
+                                <button className="bg-white mt-5 hover:bg-gray-500 hover:text-white shadow-xl text-gray-800 font-semibold w-[10rem] h-[3.4rem] py-2 px-4 border border-gray-400  rounded-xl">
+                                    Button
+                                </button>
+                            </Link>
 
 
 
@@ -50,7 +50,7 @@ const Home = () => {
                 </div>
             </main>
 
-<Footer />
+            <Footer />
         </>
     )
 }

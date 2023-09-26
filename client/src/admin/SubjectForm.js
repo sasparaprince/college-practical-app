@@ -12,7 +12,7 @@ const SubjectForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/api/subjects', subjectData);
+      const response = await axios.post('https://college-practical.vercel.app/api/subjects', subjectData);
 
       if (response.status === 201) {
         console.log('Subject added successfully');
