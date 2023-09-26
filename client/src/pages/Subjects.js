@@ -13,11 +13,7 @@ const Subject = () => {
 
       </div>
       <Footer />
-
     </>
-
-
-
   );
 };
 
