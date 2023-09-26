@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require('./routes/routes');
-require('dotenv').config();
-
+const dotenv = require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,8 +12,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connect to MongoDB (replace 'your-database-name' with your actual database name)
-mongoose.connect('process.env.MONGO_URL', {
+// Connect to MongoDB using the environment variable
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
