@@ -37,7 +37,7 @@ const SubjectListing = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {subjects.map((subject) => (
           <Link to={`/subject/${subject._id}`} key={subject._id}>
-            <div className="bg-white p-4 rounded-xl shadow-xl">
+            <div className="bg-white opacity-80 p-4 rounded-xl shadow-lg hover:shadow-slate-300">
               <img
                 src={subject.imageUrl}
                 alt={subject.description}

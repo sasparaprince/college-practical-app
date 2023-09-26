@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const SubjectPracticals = () => {
   const { subjectId } = useParams();
@@ -8,24 +8,12 @@ const SubjectPracticals = () => {
   const [practicals, setPracticals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Initialize navigation function
-
-  const handleSolutionClick = (practicalId, solutionId) => {
-    // Ensure that solutionId is defined before navigating
-    if (solutionId) {
-      // Use the navigate function to go to the solution page
-      navigate(`/solution/${practicalId}/${solutionId}`);
-    } else {
-      console.error('Solution ID is undefined.');
-    }
-  };
 
   useEffect(() => {
-    // Fetch subject practicals based on subjectId
     axios
       .get(`http://localhost:3001/api/practicals/${subjectId}`)
       .then((response) => {
-        const { subject, practicals } = response.data;
+        const { subject, practicals } = response.data; // Ensure subject is part of the response
         setSubject(subject);
         setPracticals(practicals || []);
         setLoading(false);
@@ -37,9 +25,6 @@ const SubjectPracticals = () => {
         setError('Error fetching subject practicals. Please try again later.');
       });
   }, [subjectId]);
-
-  // Function to handle the "Solution" button click
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -70,24 +55,22 @@ const SubjectPracticals = () => {
         </thead>
         <tbody className="bg-white bg-opacity-90 divide-y divide-gray-200">
           {Array.isArray(practicals) &&
-            practicals.map((practical) => (
+            practicals.map((practical, index) => (
               <tr key={practical._id}>
                 <td className="w-10 px-6 border py-4 whitespace-nowrap">
-                  {practical.srNo}
+                  {index + 1}
                 </td>
                 <td className="w-70 px-6 border py-4 whitespace-nowrap">
                   {practical.aim}
                 </td>
                 <td className="w-20 px-6 border py-4 whitespace-nowrap">
-                  {/* Use a button to trigger the solution link */}
-                  <button
-                    onClick={() =>
-                      handleSolutionClick(practical._id, practical.solutionId)
-                    }
+                  <Link
+                    to={`/solutions/${practical._id}/${practical.solutionId}`}
                     className="text-blue-500 hover:underline"
                   >
                     Solution
-                  </button>
+                  </Link>
+
                 </td>
               </tr>
             ))}

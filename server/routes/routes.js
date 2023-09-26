@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+
 const Subject = require('../models/Subject');
 const Practical = require('../models/Practical');
 const Solution = require('../models/Solution');
+
 
 // Create a new subject
 // Create a new subject
@@ -42,16 +44,26 @@ router.post('/practicals', async (req, res) => {
   
 
 // Create a new solution
+// Create a new solution
 router.post('/solutions', async (req, res) => {
   try {
     const newSolution = new Solution(req.body);
     const savedSolution = await newSolution.save();
+
+    // Update the corresponding Practical document with the new solution's _id
+    await Practical.findByIdAndUpdate(
+      req.body.practicalId,
+      { solutionId: savedSolution._id },
+      { new: true }
+    );
+
     res.status(201).json(savedSolution);
   } catch (err) {
     console.error('Error while saving solution:', err);
     res.status(400).json({ error: err.message });
   }
 });
+
 
 // Get a list of subjects
 router.get('/subjects', async (req, res) => {
@@ -131,27 +143,51 @@ router.post('/', async (req, res) => {
 
 
 // Define a route to get a specific solution by Subject ID, Practical ID, and Solution ID
-router.get('/solutions/:subjectId/:practicalId/:solutionId', async (req, res) => {
-  try {
-    const { subjectId, practicalId, solutionId } = req.params;
+// router.get('/solutions/:subjectId/:practicalId/:solutionId', async (req, res) => {
+//   try {
+//     const { subjectId, practicalId, solutionId } = req.params;
 
-    // Find a single solution that matches the provided IDs
+//     // Find a single solution that matches the provided IDs
+//     const solution = await Solution.findOne({
+//       subjectId,
+//       practicalId,
+//       _id: solutionId,
+//     });
+
+//     if (!solution) {
+//       return res.status(404).json({ error: 'Solution not found' });
+//     }
+
+//     res.json(solution);
+//   } catch (error) {
+//     console.error('Error fetching solution:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+// GET a specific solution by solutionId and practicalId
+router.get('/solutions/:practicalId/:solutionId', async (req, res) => {
+  try {
+    const { solutionId, practicalId } = req.params;
+
+    // Query the database based on solutionId and practicalId
     const solution = await Solution.findOne({
-      subjectId,
-      practicalId,
       _id: solutionId,
+      practicalId: practicalId,
     });
 
     if (!solution) {
-      return res.status(404).json({ error: 'Solution not found' });
+      return res.status(404).json({ message: 'Solution not found' });
     }
 
-    res.json(solution);
+    res.status(200).json(solution);
   } catch (error) {
     console.error('Error fetching solution:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 
 
