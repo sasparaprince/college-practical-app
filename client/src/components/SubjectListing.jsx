@@ -8,7 +8,7 @@ const SubjectListing = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/subjects')
+    axios.get('https://college-practical.vercel.app/api/subjects')
     .then((response) => {
       console.log('API Response:', response.data);
       setSubjects(response.data);

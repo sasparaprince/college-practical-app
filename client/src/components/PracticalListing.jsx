@@ -11,7 +11,7 @@ const SubjectPracticals = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/practicals/${subjectId}`)
+      .get(`https://college-practical.vercel.app/api/practicals/${subjectId}`)
       .then((response) => {
         const { subject, practicals } = response.data; // Ensure subject is part of the response
         setSubject(subject);

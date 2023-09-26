@@ -12,7 +12,7 @@ const SolutionForm = () => {
 
   // Fetch subjects
   useEffect(() => {
-    axios.get('http://localhost:3001/api/subjects')
+    axios.get('https://college-practical.vercel.app/api/subjects')
       .then((response) => {
         setSubjects(response.data);
       })

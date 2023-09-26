@@ -14,7 +14,7 @@ const Solution = () => {
   useEffect(() => {
     // Fetch solution based on the provided solutionId and practicalId
     axios
-      .get(`http://localhost:3001/api/solutions/${practicalId}/${solutionId}`)
+      .get(`https://college-practical.vercel.app/api/solutions/${practicalId}/${solutionId}`)
       .then((response) => {
         setSolution(response.data);
       })
