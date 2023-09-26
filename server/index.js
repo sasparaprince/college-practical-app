@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require('./routes/routes');
+require('dotenv').config();
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace 'your-database-name' with your actual database name)
-mongoose.connect('mongodb+srv://admin-prince:Prince3252@cluster0.xkujutz.mongodb.net/college-practicals', {
+mongoose.connect('process.env.MONGO_URL', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -32,5 +34,3 @@ app.use('/api', routes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-//mongodb+srv://admin-prince:Prince3252@cluster0.xkujutz.mongodb.net/college-practicals
