@@ -39,43 +39,44 @@ const SubjectPracticals = () => {
       <h1 className="text-2xl text-white font-semibold mb-4">
         Practicals for {subject.subjectName}
       </h1>
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-[#E3FDFD] bg-opacity-90 border-2 border-sky-500">
-          <tr>
-            <th className="w-10 px-6 py-3 text-left text-xs font-medium border uppercase tracking-wider">
-              SR No
-            </th>
-            <th className="w-70 px-6 py-3 text-left text-xs font-medium border uppercase tracking-wider">
-              Aim
-            </th>
-            <th className="w-20 px-6 py-3 text-left text-xs font-medium border uppercase tracking-wider">
-              Solution
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white bg-opacity-90 divide-y divide-gray-200">
-          {Array.isArray(practicals) &&
-            practicals.map((practical, index) => (
-              <tr key={practical._id}>
-                <td className="w-10 px-6 border py-4 whitespace-nowrap">
-                  {index + 1}
-                </td>
-                <td className="w-70 px-6 border py-4 whitespace-nowrap">
-                  {practical.aim}
-                </td>
-                <td className="w-20 px-6 border py-4 whitespace-nowrap">
-                  <Link
-                    to={`/solutions/${practical._id}/${practical.solutionId}`}
-                    className="text-blue-500 hover:underline"
-                  >
-                    Solution
-                  </Link>
-
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="min-w-full mx-auto divide-y divide-gray-200">
+          <thead className="bg-[#E3FDFD] bg-opacity-90 border-2 border-sky-500">
+            <tr>
+              <th className="w-1/24 px-2 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 text-xs font-medium border text-center uppercase tracking-wider">
+                SR No
+              </th>
+              <th className="w-5/6 px-4 py-3 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 text-center text-xs font-medium border uppercase tracking-wider">
+                Aim
+              </th>
+              <th className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 text-center text-xs font-medium border uppercase tracking-wider">
+                Solution
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white bg-opacity-90 divide-y divide-gray-200">
+            {Array.isArray(practicals) &&
+              practicals.map((practical, index) => (
+                <tr key={practical._id}>
+                  <td className="w-1/6 px-2 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
+                    {index + 1}
+                  </td>
+                  <td className="w-5/6 px-4 py-3 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6">
+                    <div className="whitespace-pre-wrap">{practical.aim}</div>
+                  </td>
+                  <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
+                    <Link
+                      to={`/solutions/${practical._id}/${practical.solutionId}`}
+                      className="text-blue-500 hover:underline"
+                    >
+                      Solution
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
