@@ -11,7 +11,7 @@ const PracticalForm = () => {
 
   useEffect(() => {
     // Fetch the list of subjects from the backend
-    axios.get('https://college-practical.vercel.app/api/subjects')
+    axios.get('http://localhost:3001/api/subjects')
       .then((response) => {
         setSubjects(response.data);
       })

@@ -5,14 +5,15 @@ const SolutionForm = () => {
   const [subjects, setSubjects] = useState([]);
   const [selectedSubjectId, setSelectedSubjectId] = useState('');
   const [practicals, setPracticals] = useState([]);
-  const [selectedPracticalAim, setSelectedPracticalAim] = useState(''); // Use Practical Aim as Practical Name
-  const [solutionCode, setSolutionCode] = useState('');
-  const [codeOutput, setCodeOutput] = useState('');
-  const [explanation, setExplanation] = useState('');
+  const [selectedPracticalId, setSelectedPracticalId] = useState('');
+  const [solutions, setSolutions] = useState([
+    { solutionCode: '', codeOutput: '', explanation: '' },
+  ]);
 
-  // Fetch subjects
   useEffect(() => {
-    axios.get('https://college-practical.vercel.app/api/subjects')
+    // Fetch subjects
+    axios
+      .get('http://localhost:3001/api/subjects')
       .then((response) => {
         setSubjects(response.data);
       })
@@ -21,10 +22,11 @@ const SolutionForm = () => {
       });
   }, []);
 
-  // Fetch practicals based on the selected subject
   useEffect(() => {
+    // Fetch practicals based on the selected subject
     if (selectedSubjectId) {
-      axios.get(`http://localhost:3001/api/practicals/${selectedSubjectId}`)
+      axios
+        .get(`http://localhost:3001/api/practicals/${selectedSubjectId}`)
         .then((response) => {
           setPracticals(response.data.practicals);
         })
@@ -34,31 +36,32 @@ const SolutionForm = () => {
     }
   }, [selectedSubjectId]);
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const addSolution = () => {
+    setSolutions([...solutions, { solutionCode: '', codeOutput: '', explanation: '' }]);
+  };
+
+  const handleSolutionChange = (index, field, value) => {
+    const updatedSolutions = [...solutions];
+    updatedSolutions[index][field] = value;
+    setSolutions(updatedSolutions);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Find the selected practical object by its aim
-    const selectedPractical = practicals.find((practical) => practical.aim === selectedPracticalAim);
-
-    // Make a POST request to create a solution
-    axios.post('http://localhost:3001/api/solutions', {
-      subjectId: selectedSubjectId,
-      practicalId: selectedPractical._id, // Use Practical ID
-      practicalName: selectedPracticalAim, // Use Practical Aim as Practical Name
-      solutionCode,
-      codeOutput,
-      explanation,
-    })
-      .then((response) => {
-        // Handle success (e.g., show a success message or redirect)
-        console.log('Solution created:', response.data);
-        // Optionally clear form fields or perform any other actions
-      })
-      .catch((error) => {
-        console.error('Error creating solution:', error);
-        // Handle error (e.g., display an error message)
+    try {
+      // Make a POST request to create the practical with multiple solutions
+      const response = await axios.post('http://localhost:3001/api/solutions', {
+        practicalId: selectedPracticalId,
+        solutions: solutions,
       });
+
+      // Handle success...
+      console.log('Solutions created:', response.data);
+    } catch (error) {
+      // Handle error...
+      console.error('Error creating solutions:', error);
+    }
   };
 
   return (
@@ -84,14 +87,14 @@ const SolutionForm = () => {
           <div className="mb-4">
             <label className="block text-white font-medium mb-2">Select a Practical</label>
             <select
-              value={selectedPracticalAim}
-              onChange={(e) => setSelectedPracticalAim(e.target.value)}
+              value={selectedPracticalId}
+              onChange={(e) => setSelectedPracticalId(e.target.value)}
               className="w-full p-2 bg-gray-200 rounded"
             >
               <option value="">Select a Practical</option>
               {practicals.length > 0 ? (
                 practicals.map((practical) => (
-                  <option key={practical._id} value={practical.aim}>
+                  <option key={practical._id} value={practical._id}>
                     {practical.aim}
                   </option>
                 ))
@@ -102,37 +105,54 @@ const SolutionForm = () => {
           </div>
         )}
         <div className="mb-4">
-          <label className="block text-white font-medium mb-2">Solution Code</label>
-          <textarea
-            value={solutionCode}
-            onChange={(e) => setSolutionCode(e.target.value)}
-            rows="6"
-            className="w-full p-2 bg-gray-200 rounded"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-white font-medium mb-2">Code Output</label>
-          <textarea
-            value={codeOutput}
-            onChange={(e) => setCodeOutput(e.target.value)}
-            rows="6"
-            className="w-full p-2 bg-gray-200 rounded"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-white font-medium mb-2">Explanation</label>
-          <textarea
-            value={explanation}
-            onChange={(e) => setExplanation(e.target.value)}
-            rows="6"
-            className="w-full p-2 bg-gray-200 rounded"
-          />
+          <h2 className="text-2xl text-white font-semibold mb-2">Solutions</h2>
+          {solutions.map((solution, index) => (
+            <div key={index} className="mb-4">
+              <h3 className="text-xl text-white font-semibold mb-2">
+                Solution {index + 1}
+              </h3>
+              <div className="mb-4">
+                <label className="block text-white font-medium mb-2">Solution Code</label>
+                <textarea
+                  value={solution.solutionCode}
+                  onChange={(e) => handleSolutionChange(index, 'solutionCode', e.target.value)}
+                  rows="6"
+                  className="w-full p-2 bg-gray-200 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-white font-medium mb-2">Code Output</label>
+                <textarea
+                  value={solution.codeOutput}
+                  onChange={(e) => handleSolutionChange(index, 'codeOutput', e.target.value)}
+                  rows="6"
+                  className="w-full p-2 bg-gray-200 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-white font-medium mb-2">Explanation</label>
+                <textarea
+                  value={solution.explanation}
+                  onChange={(e) => handleSolutionChange(index, 'explanation', e.target.value)}
+                  rows="6"
+                  className="w-full p-2 bg-gray-200 rounded"
+                />
+              </div>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addSolution}
+            className="bg-blue-500 text-white font-medium py-2 px-4 rounded mb-4 hover:bg-blue-600"
+          >
+            Add Solution
+          </button>
         </div>
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded"
         >
-          Submit
+          Submit Solutions
         </button>
       </form>
     </div>

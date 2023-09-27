@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Loading from './Loading';
 
 const SubjectListing = () => {
   const [subjects, setSubjects] = useState([]);
@@ -8,7 +9,7 @@ const SubjectListing = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://college-practical.vercel.app/api/subjects')
+    axios.get('http://localhost:3001/api/subjects')
     .then((response) => {
       console.log('API Response:', response.data);
       setSubjects(response.data);
@@ -24,7 +25,7 @@ const SubjectListing = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />
   }
 
   if (error) {

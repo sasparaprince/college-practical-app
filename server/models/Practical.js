@@ -10,11 +10,13 @@ const practicalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  solutionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Solution', // Reference to the Solution model
-    // required: true,
-  },
+  solutions: [
+    {
+      solutionCode: String,
+      codeOutput: String,
+      explanation: String,
+    },
+  ],
 });
 
 const Practical = mongoose.model('Practical', practicalSchema);

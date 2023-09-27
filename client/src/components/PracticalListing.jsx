@@ -11,7 +11,7 @@ const SubjectPracticals = () => {
 
   useEffect(() => {
     axios
-      .get(`https://college-practical.vercel.app/api/practicals/${subjectId}`)
+      .get(`http://localhost:3001/api/practicals/${subjectId}`)
       .then((response) => {
         const { subject, practicals } = response.data; // Ensure subject is part of the response
         setSubject(subject);
@@ -65,13 +65,15 @@ const SubjectPracticals = () => {
                     <div className="whitespace-pre-wrap">{practical.aim}</div>
                   </td>
                   <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
-                    <Link
-                      to={`/solutions/${practical._id}/${practical.solutionId}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Solution
-                    </Link>
+                    {(practical._id) ? (
+                      <Link to={`/solutions/${practical._id}`}>Solution</Link>
+
+
+                    ) : (
+                      <span className="text-gray-400">No Solution</span>
+                    )}
                   </td>
+
                 </tr>
               ))}
           </tbody>
