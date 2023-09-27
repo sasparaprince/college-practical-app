@@ -6,13 +6,14 @@ import Home from './pages/Home';
 import './App.css';
 import List from './pages/Subjects';
 // import Practical from './pages/Practical';
-import PracticalListing from './components/PracticalListing';
+// import PracticalListing from './components/PracticalListing';
 import SubjectForm from './admin/SubjectForm';
 import AdminDashboard from './admin/AdminDashboard';
 import PracticalForm from './admin/PracticalForm';
 import SolutionForm from './admin/SolutionForm';
 import Solution from './pages/Solution';
 import SubjectPracticals from './components/PracticalListing';
+import Practical from './pages/Practical';
 
 
 const App = () => {
@@ -34,7 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Subject" element={<List />} />
-          <Route path="/subject/:subjectId" element={<PracticalListing />} />
+          <Route path="/subject/:subjectId" element={<Practical />} />
 
           <Route path="/admin/subjects" element={<SubjectForm />} />
           <Route path="/admin/practicals" element={<PracticalForm />} />

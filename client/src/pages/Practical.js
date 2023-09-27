@@ -1,5 +1,5 @@
 import React from 'react'
-import PracticalListing from '../components/PracticalListing'
+import SubjectPracticals from '../components/PracticalListing'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -9,7 +9,7 @@ const Practical = () => {
     <>
       <Navbar />
       <div>
-        <PracticalListing />
+        <SubjectPracticals />
       </div>
       <Footer />
     </>
