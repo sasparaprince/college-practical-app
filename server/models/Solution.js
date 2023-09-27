@@ -1,18 +1,9 @@
 const mongoose = require('mongoose');
 
 const solutionSchema = new mongoose.Schema({
-  subjectId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Subject', // Reference to the Subject model
-    required: true,
-  },
   practicalId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Practical', // Reference to the Practical model
-    required: true,
-  },
-  practicalName: {
-    type: String,
+    ref: 'Practical',
     required: true,
   },
   solutionCode: {

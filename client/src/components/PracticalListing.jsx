@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import Loader from './Spinner';
 
 const SubjectPracticals = () => {
   const { subjectId } = useParams();
@@ -27,7 +28,7 @@ const SubjectPracticals = () => {
   }, [subjectId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {
@@ -65,13 +66,15 @@ const SubjectPracticals = () => {
                     <div className="whitespace-pre-wrap">{practical.aim}</div>
                   </td>
                   <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
-                    <Link
-                      to={`/solutions/${practical._id}/${practical.solutionId}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Solution
-                    </Link>
+                    {(practical._id) ? (
+                      <Link to={`/solutions/${practical._id}`}>Solution</Link>
+
+
+                    ) : (
+                      <span className="text-gray-400">No Solution</span>
+                    )}
                   </td>
+
                 </tr>
               ))}
           </tbody>

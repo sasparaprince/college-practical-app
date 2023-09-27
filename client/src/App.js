@@ -40,7 +40,9 @@ const App = () => {
           <Route path="/admin/practicals" element={<PracticalForm />} />
           <Route path="/admin/solutions" element={<SolutionForm />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/solutions/:practicalId/:solutionId" element={<Solution />} />
+          <Route path="/solutions/:practicalId" element= {  <Solution />} />
+
+
 
           <Route path="/subject/:subjectId" element={<SubjectPracticals />} />
         </Routes>

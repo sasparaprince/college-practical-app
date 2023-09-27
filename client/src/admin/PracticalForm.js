@@ -24,7 +24,7 @@ const PracticalForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/api/practicals', practicalData);
+      const response = await axios.post('https://college-practical.vercel.app/api/practicals', practicalData);
 
       if (response.status === 201) {
         console.log('Practical added successfully');

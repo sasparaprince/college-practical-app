@@ -1,89 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Loader from '../components/Spinner';
+
 
 const Solution = () => {
-
-  const [solution, setSolution] = useState(null);
+  const { practicalId } = useParams();
+  const [practical, setPractical] = useState(null); // Add state for practical
+  const [solutions, setSolutions] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
-  const { solutionId, practicalId } = useParams();
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch solution based on the provided solutionId and practicalId
     axios
-      .get(`https://college-practical.vercel.app/api/solutions/${practicalId}/${solutionId}`)
+      .get(`https://college-practical.vercel.app/api/practicals/${practicalId}/solutions`)
       .then((response) => {
-        setSolution(response.data);
+        setPractical(response.data); // Set the practical data
+        setSolutions(response.data.solutions); // Set the solutions data
+        setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching solution:', error);
-        setSolution(null); // Set solution to null in case of an error.
+        console.error('Error fetching solutions:', error);
+        setLoading(false);
+        setError('Error fetching solutions. Please try again later.');
       });
-  }, [solutionId, practicalId]);
+  }, [practicalId]);
 
-  const copyCodeToClipboard = () => {
-    if (solution && solution.solutionCode) {
-      // Create a temporary textarea element to copy the code to the clipboard
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = solution.solutionCode;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempTextArea);
+  const copyCodeToClipboard = (code) => {
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = code;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextArea);
 
-      // Set the state to indicate that code is copied
-      setIsCopied(true);
+    setIsCopied(true);
 
-      // Reset the copied state after a brief period (e.g., 2 seconds)
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
   };
 
-  if (solution === null) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <Loader />
   }
 
-  if (!solution) {
-    return <div>Solution not found.</div>;
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (solutions.length === 0) {
+    return <div>No solutions found for this practical.</div>;
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl text-white font-semibold mb-4">Practical Aim: {solution.practicalName}</h2>
-      {/* Add a paragraph to display the practical aim */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-      <p className="text-lg font-medium mb-4">{solution.practicalName}</p>
+      <h2 className="text-2xl text-white font-semibold mb-4">
+        Solutions for Practical {}
+      </h2>
+      <div className='bg-white p-4 rounded-lg shadow-md mb-4'>
+      <h3 className="text-lg font-medium mb-4">Practical Aim: {practical.aim}</h3>
 
-        <div className="bg-gray-100 p-4 rounded-lg">
-          <strong>C Code:</strong>
-          <div className="relative">
-            <button
-              onClick={copyCodeToClipboard}
-              className={`absolute top-2 right-2 bg-blue-500 text-white p-1 rounded cursor-pointer ${
-                isCopied ? 'bg-green-500' : ''
-              }`}
-            >
-              {isCopied ? 'Copied!' : 'Copy'}
-            </button>
-            <SyntaxHighlighter language="c" style={prism}>
-              {solution.solutionCode}
-            </SyntaxHighlighter>
+      </div>
+      {solutions.map((solution) => (
+        <div key={solution._id} className="bg-white p-4 rounded-lg shadow-md mb-4">
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <strong>C Code:</strong>
+            <div className="relative">
+              <button
+                onClick={() => copyCodeToClipboard(solution.solutionCode)}
+                className={`absolute top-2 right-2 bg-blue-500 text-white p-1 rounded cursor-pointer ${
+                  isCopied ? 'bg-green-500' : ''
+                }`}
+              >
+                {isCopied ? 'Copied!' : 'Copy'}
+              </button>
+              <SyntaxHighlighter language="c" style={prism}>
+                {solution.solutionCode}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+          <div className="mt-4">
+            <strong>Output:</strong>
+            <pre className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap">{solution.codeOutput}</pre>
+          </div>
+          <div className="mt-4">
+            <strong>Explanation:</strong>
+            <pre className="bg-gray-100 p-4 rounded-lg whitespace-pre-wrap">{solution.explanation}</pre>
+          </div>
+          <div className="mt-4">
+            <Link to={`/practicals/${practicalId}/all-solutions`}>View All Solutions for this Practical</Link>
           </div>
         </div>
-        <div className="mt-4">
-          <strong>Output:</strong>
-          <pre className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap">{solution.codeOutput}</pre>
-        </div>
-        <div className="mt-4">
-          <strong>Explanation:</strong>
-          <pre className="bg-gray-100 p-4 rounded-lg whitespace-pre-wrap">{solution.explanation}</pre>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

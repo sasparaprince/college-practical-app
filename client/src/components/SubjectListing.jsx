@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Loader from './Spinner';
+
 
 const SubjectListing = () => {
   const [subjects, setSubjects] = useState([]);
@@ -24,7 +26,7 @@ const SubjectListing = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {
