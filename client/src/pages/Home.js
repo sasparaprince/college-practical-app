@@ -34,7 +34,7 @@ const Home = () => {
                             </h1>
                             <Link to={'/subject'}>
                                 <button className="bg-white mt-5 hover:bg-gray-500 hover:text-white shadow-xl text-gray-800 font-semibold w-[10rem] h-[3.4rem] py-2 px-4 border border-gray-400  rounded-xl">
-                                    Button
+                                    Subjects
                                 </button>
                             </Link>
 

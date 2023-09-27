@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Loader from '../components/Spinner';
+
 
 const Solution = () => {
   const { practicalId } = useParams();
@@ -14,7 +16,7 @@ const Solution = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/practicals/${practicalId}/solutions`)
+      .get(`https://college-practical.vercel.app/api/practicals/${practicalId}/solutions`)
       .then((response) => {
         setPractical(response.data); // Set the practical data
         setSolutions(response.data.solutions); // Set the solutions data
@@ -43,7 +45,7 @@ const Solution = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {

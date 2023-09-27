@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import Loader from './Spinner';
 
 const SubjectPracticals = () => {
   const { subjectId } = useParams();
@@ -11,7 +12,7 @@ const SubjectPracticals = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/practicals/${subjectId}`)
+      .get(`https://college-practical.vercel.app/api/practicals/${subjectId}`)
       .then((response) => {
         const { subject, practicals } = response.data; // Ensure subject is part of the response
         setSubject(subject);
@@ -27,7 +28,7 @@ const SubjectPracticals = () => {
   }, [subjectId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />
   }
 
   if (error) {

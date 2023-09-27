@@ -13,7 +13,7 @@ const SolutionForm = () => {
   useEffect(() => {
     // Fetch subjects
     axios
-      .get('http://localhost:3001/api/subjects')
+      .get('https://college-practical.vercel.app/api/subjects')
       .then((response) => {
         setSubjects(response.data);
       })
@@ -26,7 +26,7 @@ const SolutionForm = () => {
     // Fetch practicals based on the selected subject
     if (selectedSubjectId) {
       axios
-        .get(`http://localhost:3001/api/practicals/${selectedSubjectId}`)
+        .get(`https://college-practical.vercel.app/api/practicals/${selectedSubjectId}`)
         .then((response) => {
           setPracticals(response.data.practicals);
         })
@@ -51,7 +51,7 @@ const SolutionForm = () => {
 
     try {
       // Make a POST request to create the practical with multiple solutions
-      const response = await axios.post('http://localhost:3001/api/solutions', {
+      const response = await axios.post('https://college-practical.vercel.app/api/solutions', {
         practicalId: selectedPracticalId,
         solutions: solutions,
       });
