@@ -1,10 +1,17 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 const PrivacyPolicy = () => {
   return (
     <>
+       <Helmet>
+                <meta charSet="utf-8" />
+                <title>Privacy Policy</title>
+<meta name='description' content='Privacy Policy'/>
+            </Helmet>
+
     <Navbar />
     <div className="min-h-screen text-white bg-black bg-opacity-40">
       <div className="container mx-auto p-6">

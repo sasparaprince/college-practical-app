@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import Loader from './Spinner';
+import { Helmet } from "react-helmet";
 
 const SubjectPracticals = () => {
   const { subjectId } = useParams();
@@ -37,6 +38,11 @@ const SubjectPracticals = () => {
 
   return (
     <div className="container mx-auto my-8">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{subject.subjectName}</title>
+        <meta name='description' content='subject all the practical AIM:'/>
+      </Helmet>
       <h1 className="text-2xl text-white font-semibold mb-4">
         Practicals for {subject.subjectName}
       </h1>
