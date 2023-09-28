@@ -1,10 +1,18 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from "react-helmet";
+
 
 const About = () => {
   return (
     <>
+       <Helmet>
+                <meta charSet="utf-8" />
+                <title>About</title>
+                <meta name='description' content='About page' />
+            </Helmet>
+
     <Navbar />
     <div className=" text-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-black shadow-lg shadow-white p-4  rounded-3xl">

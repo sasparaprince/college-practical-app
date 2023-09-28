@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Loader from '../components/Spinner';
 import NotFound from '../components/NotFound';
+import { Helmet } from "react-helmet";
+
 
 
 const Solution = () => {
@@ -61,6 +63,12 @@ const Solution = () => {
 
   return (
     <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{practical.aim}</title>
+                <meta name='description' content={practical.aim}/>
+
+            </Helmet>
     <Navbar />
     <div className="container mx-auto p-4">
       <h2 className="text-2xl text-white font-semibold mb-4">

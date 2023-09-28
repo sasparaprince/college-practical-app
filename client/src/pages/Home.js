@@ -2,11 +2,18 @@ import coder from '../img/coder.png';
 import { Link } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     return (
         <>
             <Navbar />
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>College Practical Hub</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
+
 
             {/* The rest of your Home component content */}
             <header className="bg-opacity-0 py-5">

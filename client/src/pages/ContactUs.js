@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { Helmet } from 'react-helmet'
 
 const Contact = () => {
   const [name, setName] = useState('')
@@ -32,6 +33,11 @@ const Contact = () => {
 
   return (
     <>
+           <Helmet>
+                <meta charSet="utf-8" />
+                <title>Contact Us</title>
+                <meta name='description' content='About page' />
+            </Helmet>
       <Navbar />
       <div className="container mt-10 mx-auto text-white">
         <h1 className="text-3xl text-center mb-8">Contact Us</h1>
