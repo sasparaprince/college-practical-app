@@ -4,6 +4,7 @@ import mainlogo from '../img/download.webp';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +32,16 @@ const Navbar = () => {
                         <li className="mr-6">
                           <Link to="/about" className="text-white hover:text-gray-300">
                           About
+                          </Link>
+                        </li>
+                        <li className="mr-6">
+                          <Link to="/privacy-policy" className="text-white hover:text-gray-300">
+                          PrivacyPolicy
+                          </Link>
+                        </li>
+                        <li className="mr-6">
+                          <Link to="/contactus" className="text-white hover:text-gray-300">
+                          Contact Us
                           </Link>
                         </li>
                       </ul>
@@ -72,17 +83,30 @@ const Navbar = () => {
               <div className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   <Link
+                    to="/about"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    About
+                  </Link>
+                  <Link
                     to="/"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                   >
                     Home
                   </Link>
                   <Link
-                    to="/about"
+                    to="/privacy-policy"
                     className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                   >
-                    About
+                    Privacy Policy
                   </Link>
+                  <Link
+                    to="/contactus"
+                    className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Contact Us
+                  </Link>
+                  
                 
                
                 </div>

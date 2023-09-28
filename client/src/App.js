@@ -11,11 +11,13 @@ import SubjectForm from './admin/SubjectForm';
 import AdminDashboard from './admin/AdminDashboard';
 import PracticalForm from './admin/PracticalForm';
 import SolutionForm from './admin/SolutionForm';
+import ContactUs from './pages/ContactUs'; // Capital 'C'
 import Solution from './pages/Solution';
 import SubjectPracticals from './components/PracticalListing';
 import Practical from './pages/Practical';
 import About from './pages/About';
 import NotFound from './components/NotFound';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
 const App = () => {
@@ -44,7 +46,10 @@ const App = () => {
           <Route path="/admin/solutions" element={<SolutionForm />} />
           <Route path="/princesaspara" element={<AdminDashboard />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/solutions/:practicalId" element= {  <Solution />} />
+
 
           <Route path="/subject/:subjectId" element={<SubjectPracticals />} />
           <Route path="/*" element={<NotFound />} />
