@@ -1,14 +1,18 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const About = () => {
   return (
+    <>
+    <Navbar />
     <div className=" text-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-black shadow-lg shadow-white p-4  rounded-3xl">
         <h1 className="text-4xl sm:text-5xl font-semibold mb-8">About Us</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div className="mb-4 border p-2 rounded-2xl border-white">
             <p className="text-lg sm:text-xl  leading-relaxed">
-              Welcome to OurWebsiteName! We are a team of passionate individuals dedicated to providing educational resources and practical solutions for students.
+              Welcome to https://college-practicals.vercel.app/! We are a team of passionate individuals dedicated to providing educational resources and practical solutions for students.
             </p>
           </div>
           <div className="mb-4 border p-2 rounded-2xl border-white">
@@ -22,6 +26,8 @@ const About = () => {
         </p>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
