@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Loader from '../components/Spinner';
+import NotFound from '../components/NotFound';
 
 
 const Solution = () => {
@@ -53,10 +56,12 @@ const Solution = () => {
   }
 
   if (solutions.length === 0) {
-    return <div>No solutions found for this practical.</div>;
+    return <NotFound />
   }
 
   return (
+    <>
+    <Navbar />
     <div className="container mx-auto p-4">
       <h2 className="text-2xl text-white font-semibold mb-4">
         Solutions for Practical {}
@@ -68,7 +73,7 @@ const Solution = () => {
       {solutions.map((solution) => (
         <div key={solution._id} className="bg-white p-4 rounded-lg shadow-md mb-4">
           <div className="bg-gray-100 p-4 rounded-lg">
-            <strong>C Code:</strong>
+            <strong>Code:</strong>
             <div className="relative">
               <button
                 onClick={() => copyCodeToClipboard(solution.solutionCode)}
@@ -91,12 +96,12 @@ const Solution = () => {
             <strong>Explanation:</strong>
             <pre className="bg-gray-100 p-4 rounded-lg whitespace-pre-wrap">{solution.explanation}</pre>
           </div>
-          <div className="mt-4">
-            <Link to={`/practicals/${practicalId}/all-solutions`}>View All Solutions for this Practical</Link>
-          </div>
+        
         </div>
       ))}
     </div>
+    <Footer />
+    </>
   );
 };
 
