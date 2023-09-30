@@ -11,15 +11,34 @@ const SubjectPracticals = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Add state variables for search
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredPracticals, setFilteredPracticals] = useState([]);
+
+  // Function to handle search input change
+  const handleSearchChange = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter practicals based on the search query
+    const filtered = practicals.filter((practical) =>
+      practical.aim.toLowerCase().includes(query)
+    );
+    setFilteredPracticals(filtered);
+  };
+
   useEffect(() => {
     axios
       .get(`https://college-practical.vercel.app/api/practicals/${subjectId}`)
       .then((response) => {
-        const { subject, practicals } = response.data; // Ensure subject is part of the response
+        const { subject, practicals } = response.data;
         setSubject(subject);
         setPracticals(practicals || []);
         setLoading(false);
         setError(null);
+
+        // Update filteredPracticals when practicals change
+        setFilteredPracticals(practicals || []);
       })
       .catch((error) => {
         console.error('Error fetching subject practicals:', error);
@@ -46,6 +65,18 @@ const SubjectPracticals = () => {
       <h1 className="text-2xl text-white font-semibold mb-4">
         Practicals for {subject.subjectName}
       </h1>
+
+      {/* Search input */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search Practical Aims..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="px-4 py-2 border rounded-md w-full"
+        />
+      </div>
+
       <div className="overflow-x-auto">
         <table className="min-w-full mx-auto divide-y divide-gray-200">
           <thead className="bg-[#E3FDFD] bg-opacity-90 border-2 border-sky-500">
@@ -62,8 +93,8 @@ const SubjectPracticals = () => {
             </tr>
           </thead>
           <tbody className="bg-white bg-opacity-90 divide-y divide-gray-200">
-            {Array.isArray(practicals) &&
-              practicals.map((practical, index) => (
+            {Array.isArray(filteredPracticals) &&
+              filteredPracticals.map((practical, index) => (
                 <tr key={practical._id}>
                   <td className="w-1/6 px-2 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
                     {index + 1}
@@ -74,13 +105,10 @@ const SubjectPracticals = () => {
                   <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
                     {(practical._id) ? (
                       <Link to={`/solutions/${practical._id}`}>Solution</Link>
-
-
                     ) : (
                       <span className="text-gray-400">No Solution</span>
                     )}
                   </td>
-
                 </tr>
               ))}
           </tbody>
