@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto">
         <div>
           <p className="text-sm">
-            &copy; {currentYear} <a herf= 'https://college-practicals.vercel.app/'> College Practical Hub </a>
+            &copy; {currentYear} <a href="https://college-practicals.vercel.app/">College Practical Hub</a>
           </p>
         </div>
         <div>
