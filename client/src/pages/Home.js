@@ -1,8 +1,9 @@
-import coder from '../img/coder.png';
 import { Link } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Helmet } from 'react-helmet';
+import Earth from '../components/Earth'; // Import the Earth component
+import '../App.css'
 
 const Home = () => {
     return (
@@ -11,11 +12,9 @@ const Home = () => {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>College Practical Hub</title>
-                <link rel="canonical" href="http://mysite.com/example" />
+                <meta name="description" content="College Practical Hub" />
             </Helmet>
 
-
-            {/* The rest of your Home component content */}
             <header className="bg-opacity-0 py-5">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="rounded-xl border-indigo-500 bg-opacity-50 shadow-lg shadow-slate-700 bg-[#71C9CE] px-4 py-6 sm:px-6 lg:px-8">
@@ -38,11 +37,20 @@ const Home = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="order-1 md:order-2">
-                        <div className="p-4 md:p-10 md:pt-10 text-center md:text-left">
-                            <img className="mx-auto md:mx-0 drop-shadow-xl" src={coder} alt="" />
+
+
+
+                    <div className="order-1 md:order-2 centered-earth">
+
+                        <div className="md:p-10 md:pt-10 text-center md:text-left">
+                            <div id="earth-container" >
+                            <Earth />
+                            </div>
                         </div>
                     </div>
+
+                    {/* 255, 255, 255, 0.35 */}
+
                 </div>
             </main>
 
