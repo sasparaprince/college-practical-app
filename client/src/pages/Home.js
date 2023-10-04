@@ -38,19 +38,13 @@ const Home = () => {
                         </div>
                     </div>
 
-
-
                     <div className="order-1 md:order-2 centered-earth">
-
-                        <div className="md:p-10 md:pt-10 text-center md:text-left">
-                            <div id="earth-container" >
-                            <Earth />
+                        <div className="md:p-0 md:pt-00 text-center md:text-left">
+                            <div id="earth-container">
+                                <Earth className="shadow-xl" /> {/* Add the shadow class here */}
                             </div>
                         </div>
                     </div>
-
-                    {/* 255, 255, 255, 0.35 */}
-
                 </div>
             </main>
 
