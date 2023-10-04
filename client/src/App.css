@@ -68,13 +68,16 @@ footer {
   font-size: 80%; /* Adjust the font size as needed */
 }
 
+/* Default style for mobile screens */
+.earth-container {
+  width: 400px;
+  height: 400px;
+}
 
-/* Add this CSS to your stylesheets or inline style */
-.centered-earth {
-
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 300px; /* Adjust the height as needed */
-
+/* Media query for screens wider than 600px (adjust breakpoint as needed) */
+@media (min-width: 601px) {
+  .earth-container {
+    width: 600px;
+    height: 600px;
+  }
 }

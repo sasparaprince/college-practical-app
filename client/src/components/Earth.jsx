@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import cloud from '../img/cloud3.png';
 import earth2 from '../img/earth6.jpeg';
 import earthBump from '../img/earth-bump-map.jpeg'; // Replace with your bump map texture
+import SunCalc from 'suncalc';
+import circleMaskTexture from '../img/circleMaskTexture.png'; // Replace with a circular mask texture
 
 function Earth() {
   useEffect(() => {
@@ -33,6 +35,10 @@ function Earth() {
       bumpMap: earthBumpMap, // Add bump map
       bumpScale: 0.1, // Adjust bump scale as needed
     });
+
+    // Add color boost to the Earth material
+    earthMaterial.color = new THREE.Color(8, 8, 8); // Adjust the RGB values
+
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     scene.add(earth);
 
@@ -60,6 +66,18 @@ function Earth() {
     whiteLight.position.set(0, 0, -5); // Pointing away from the scene
     scene.add(whiteLight);
 
+    // Create a circular mask texture
+    const maskTexture = new THREE.TextureLoader().load(circleMaskTexture);
+    maskTexture.wrapS = THREE.RepeatWrapping;
+    maskTexture.wrapT = THREE.RepeatWrapping;
+    maskTexture.repeat.set(1, 1);
+
+    // Create a circular mask material
+    const maskMaterial = new THREE.MeshBasicMaterial({ map: maskTexture, transparent: true });
+    const maskGeometry = new THREE.PlaneGeometry(6, 8); // Adjust the size as needed
+    const maskPlane = new THREE.Mesh(maskGeometry, maskMaterial);
+    scene.add(maskPlane);
+
     // Animation
     const animate = () => {
       requestAnimationFrame(animate);
@@ -67,17 +85,12 @@ function Earth() {
       clouds.rotation.y += 0.0005;
 
       // Simulate day-night cycle by changing the light direction
-      const timeOfDay = (Date.now() % 20000) / 20000; // Adjust the duration as needed
-      const lightAngle = Math.PI * 2 * timeOfDay;
-      const lightDistance = 5;
-      const lightX = Math.cos(lightAngle) * lightDistance;
-      const lightY = Math.sin(lightAngle) * lightDistance;
-      const lightZ = lightDistance / 2; // Adjust the height of the light
-
-      directionalLight.position.set(lightX, lightY, lightZ);
-
-      // Move the blue light opposite to the sun's direction to create a shadow effect
-      blueLight.position.set(-lightX, -lightY, -lightZ);
+      const date = new Date();
+      const sunPos = SunCalc.getPosition(date, 0, 0);
+      const lightX = sunPos.azimuth * (180 / Math.PI);
+      const lightY = -sunPos.altitude * (180 / Math.PI);
+      directionalLight.position.set(lightX, lightY, 10);
+      blueLight.position.set(-lightX, -lightY, -10);
 
       renderer.render(scene, camera);
     };
@@ -88,6 +101,7 @@ function Earth() {
       // Cleanup Three.js resources if the component unmounts
       scene.remove(earth);
       scene.remove(clouds);
+      scene.remove(maskPlane); // Remove the circular mask plane
       scene.remove(blueLight); // Remove the blue light
       scene.remove(whiteLight); // Remove the white light
       renderer.dispose();
@@ -96,10 +110,9 @@ function Earth() {
   }, []);
 
   return (
-    <><div className='earth'>
-    <div id="earth-container"  /> // Set width and height
-
-    </div></>
+    <div className='earth'>
+      <div id="earth-container" /> {/* Set width and height */}
+    </div>
   );
 }
 
