@@ -20,6 +20,7 @@ import NotFound from './components/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
 
+
 const App = () => {
   // Remove the unused variable setShowNavbarAndFooter
   // const [showNavbarAndFooter, setShowNavbarAndFooter] = useState(true);
@@ -36,6 +37,8 @@ const App = () => {
   return (
     <Router>
       <div className="container-full-height">
+
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Subject" element={<List />} />
