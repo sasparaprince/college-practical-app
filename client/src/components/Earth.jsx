@@ -37,7 +37,7 @@ function Earth() {
     });
 
     // Add color boost to the Earth material
-    earthMaterial.color = new THREE.Color(8, 8, 8); // Adjust the RGB values
+    earthMaterial.color = new THREE.Color(5, 5, 5); // Adjust the RGB values
 
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     scene.add(earth);

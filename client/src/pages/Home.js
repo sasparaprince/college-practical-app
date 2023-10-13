@@ -5,9 +5,13 @@ import { Helmet } from 'react-helmet';
 import Earth from '../components/Earth'; // Import the Earth component
 import '../App.css'
 
+
 const Home = () => {
     return (
         <>
+
+
+
             <Navbar />
             <Helmet>
                 <meta charSet="utf-8" />
@@ -48,7 +52,10 @@ const Home = () => {
                 </div>
             </main>
 
+
+
             <Footer />
+
         </>
     )
 }
