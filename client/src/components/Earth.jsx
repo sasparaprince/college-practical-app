@@ -1,11 +1,10 @@
-
 import React, { useEffect } from 'react';
 import * as THREE from 'three';
 import cloud from '../img/cloud3.png';
 import earth2 from '../img/earth6.jpeg';
 import earthBump from '../img/earth-bump-map.jpeg';
 import SunCalc from 'suncalc';
-import circleMaskTexture from '../img/circleMaskTexture.png';
+
 
 function Earth() {
   useEffect(() => {
@@ -14,14 +13,16 @@ function Earth() {
     camera.position.z = 5;
 
     const renderer = new THREE.WebGLRenderer();
-    const width = window.innerWidth / 2; // Adjust the width as needed
-    const height = window.innerHeight / 2; // Adjust the height as needed
+    const width = window.innerWidth / 2;
+    const height = window.innerHeight / 2;
     renderer.setSize(width, height);
-    renderer.setSize(400, 385); // Set the size of the viewport
+    renderer.setSize(400, 385);
+    renderer.setClearColor(0x000000, 0);
+    renderer.domElement.style.zIndex = 3;
     const earthContainer = document.getElementById('earth-container');
     earthContainer.appendChild(renderer.domElement);
 
-    const earthGeometry = new THREE.SphereGeometry(3, 32, 32);
+    const earthGeometry = new THREE.SphereGeometry(3, 64, 64); // Increase segments to 64
     const earthTexture = new THREE.TextureLoader().load(earth2);
     const earthBumpMap = new THREE.TextureLoader().load(earthBump);
     const earthMaterial = new THREE.MeshPhongMaterial({
@@ -29,11 +30,17 @@ function Earth() {
       bumpMap: earthBumpMap,
       bumpScale: 0.1,
     });
-    earthMaterial.color = new THREE.Color(5, 5, 5); // Adjust the RGB values
+
+    // Increase shininess for a more polished look
+    earthMaterial.shininess = 40;
+
+earthMaterial.color = new THREE.Color(5, 5, 5);
+
+
     const earth = new THREE.Mesh(earthGeometry, earthMaterial);
     scene.add(earth);
 
-    const cloudGeometry = new THREE.SphereGeometry(3.08, 32, 32);
+    const cloudGeometry = new THREE.SphereGeometry(3.08, 64, 64); // Increase segments to 64
     const cloudTexture = new THREE.TextureLoader().load(cloud);
     const cloudMaterial = new THREE.MeshBasicMaterial({ map: cloudTexture, transparent: true });
     const clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
@@ -51,6 +58,8 @@ function Earth() {
     const whiteLight = new THREE.DirectionalLight(0xffffff, 1);
     whiteLight.position.set(0, 0, -5);
     scene.add(whiteLight);
+
+
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -72,6 +81,9 @@ function Earth() {
     return () => {
       scene.remove(earth);
       scene.remove(clouds);
+
+      scene.remove(blueLight);
+      scene.remove(whiteLight);
       renderer.dispose();
       earthContainer.removeChild(renderer.domElement);
     };
@@ -85,3 +97,5 @@ function Earth() {
 }
 
 export default Earth;
+
+

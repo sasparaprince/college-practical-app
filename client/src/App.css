@@ -72,6 +72,8 @@ footer {
 .earth-container {
   width: 400px;
   height: 400px;
+
+
 }
 
 /* Media query for screens wider than 600px (adjust breakpoint as needed) */
@@ -80,4 +82,21 @@ footer {
     width: 600px;
     height: 600px;
   }
+}
+
+
+.icon:hover {
+  transform: scale(1.4); /* Make the icon 10% larger on hover */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+.icon {
+  margin-right: 20px; /* Adjust the margin to control the gap between icons */
+}
+
+.hover-grow {
+  transition: transform 0.2s; /* Add a smooth transition effect */
+}
+
+.hover-grow:hover {
+  transform: scale(1.1); /* Increase the size on hover (you can adjust the scale factor) */
 }
