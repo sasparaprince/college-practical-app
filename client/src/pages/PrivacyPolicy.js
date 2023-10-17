@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
        <Helmet>
                 <meta charSet="utf-8" />
                 <title>Privacy Policy</title>
-<meta name='description' content='Privacy Policy'/>
+         <meta name='description' content='Privacy Policy'/>
             </Helmet>
 
     <Navbar />
