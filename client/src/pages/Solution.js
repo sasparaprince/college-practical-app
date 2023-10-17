@@ -102,7 +102,7 @@ const Solution = () => {
           </div>
           <div className="mt-4">
             <strong>Explanation:</strong>
-            <pre className="bg-gray-100 p-4 rounded-lg whitespace-pre-wrap">{solution.explanation}</pre>
+            <pre className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap">{solution.explanation}</pre>
           </div>
         
         </div>
