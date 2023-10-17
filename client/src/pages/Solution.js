@@ -98,7 +98,7 @@ const Solution = () => {
           </div>
           <div className="mt-4">
             <strong>Output:</strong>
-            <pre className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap">{solution.codeOutput}</pre>
+            <pre className="bg-black p-4 text-white rounded-lg whitespace-pre-wrap">{solution.codeOutput}</pre>
           </div>
           <div className="mt-4">
             <strong>Explanation:</strong>
