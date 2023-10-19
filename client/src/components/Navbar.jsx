@@ -44,6 +44,11 @@ const Navbar = () => {
                           Contact Us
                           </Link>
                         </li>
+                        <li className="mr-6">
+                          <Link to="/Whiteboard" className="text-white hover:text-gray-300">
+                          Whiteboard
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -105,6 +110,12 @@ const Navbar = () => {
                     className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                   >
                     Contact Us
+                  </Link>
+                  <Link
+                    to="/Whiteboard"
+                    className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Whiteboard
                   </Link>
                   
                 

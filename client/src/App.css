@@ -100,3 +100,16 @@ footer {
 .hover-grow:hover {
   transform: scale(1.1); /* Increase the size on hover (you can adjust the scale factor) */
 }
+
+
+
+.whiteboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.canvas {
+  border: 1px solid #000;
+}
