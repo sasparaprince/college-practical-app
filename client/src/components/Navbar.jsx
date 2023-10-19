@@ -111,6 +111,12 @@ const Navbar = () => {
                   >
                     Contact Us
                   </Link>
+                  <Link
+                    to="/Whiteboard"
+                    className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Whiteboard
+                  </Link>
                   
                 
                
