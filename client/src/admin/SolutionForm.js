@@ -83,6 +83,7 @@ const SolutionForm = () => {
             ))}
           </select>
         </div>
+
         {selectedSubjectId && (
           <div className="mb-4">
             <label className="block text-white font-medium mb-2">Select a Practical</label>
@@ -104,6 +105,7 @@ const SolutionForm = () => {
             </select>
           </div>
         )}
+
         <div className="mb-4">
           <h2 className="text-2xl text-white font-semibold mb-2">Solutions</h2>
           {solutions.map((solution, index) => (
@@ -113,30 +115,30 @@ const SolutionForm = () => {
               </h3>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Solution Code</label>
-                <textarea
-                  value={solution.solutionCode}
-                  onChange={(e) => handleSolutionChange(index, 'solutionCode', e.target.value)}
-                  rows="6"
+                <div
+                  contentEditable="true"
+                  onInput={(e) => handleSolutionChange(index, 'solutionCode', e.currentTarget.innerHTML)}
                   className="w-full p-2 bg-gray-200 rounded"
-                />
+                  dangerouslySetInnerHTML={{ __html: solution.solutionCode }}
+                ></div>
               </div>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Code Output</label>
-                <textarea
-                  value={solution.codeOutput}
-                  onChange={(e) => handleSolutionChange(index, 'codeOutput', e.target.value)}
-                  rows="6"
+                <div
+                  contentEditable="true"
+                  onInput={(e) => handleSolutionChange(index, 'codeOutput', e.currentTarget.innerHTML)}
                   className="w-full p-2 bg-gray-200 rounded"
-                />
+                  dangerouslySetInnerHTML={{ __html: solution.codeOutput }}
+                ></div>
               </div>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Explanation</label>
-                <textarea
-                  value={solution.explanation}
-                  onChange={(e) => handleSolutionChange(index, 'explanation', e.target.value)}
-                  rows="6"
+                <div
+                  contentEditable="true"
+                  onInput={(e) => handleSolutionChange(index, 'explanation', e.currentTarget.innerHTML)}
                   className="w-full p-2 bg-gray-200 rounded"
-                />
+                  dangerouslySetInnerHTML={{ __html: solution.explanation }}
+                ></div>
               </div>
             </div>
           ))}
@@ -148,6 +150,7 @@ const SolutionForm = () => {
             Add Solution
           </button>
         </div>
+
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded"
