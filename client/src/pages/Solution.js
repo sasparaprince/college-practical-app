@@ -71,8 +71,9 @@ const Solution = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{practical?.aim}</title>
+        <title>{practical?.aim} collage practical hub</title>
         <meta name="description" content={practical?.aim} />
+
       </Helmet>
       <Navbar />
       <div className="container mx-auto p-4">

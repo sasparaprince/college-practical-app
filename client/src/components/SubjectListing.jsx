@@ -51,14 +51,15 @@ const SubjectListing = () => {
 
   return (
     <div className="container mx-auto my-8">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>All Subjects</title>
-        <meta
-          name="description"
-          content="data structure, python, OOP, java, web-app, c, c++"
-        />
-      </Helmet>
+<Helmet>
+  <meta charSet="utf-8" />
+  <title>All Subjects</title>
+  <meta
+    name="description"
+    content={`All subjects: ${subjects.map(subject => subject.subjectName).join(', ')}`}
+  />
+</Helmet>
+
 
       <h1 className="text-2xl text-white font-semibold mb-4">All Subjects</h1>
 

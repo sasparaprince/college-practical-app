@@ -55,13 +55,25 @@ const SubjectPracticals = () => {
     return <div>Error: {error}</div>;
   }
 
+
+
   return (
     <div className="container mx-auto my-8">
-      <Helmet>
+
+
+      {/* <Helmet>
         <meta charSet="utf-8" />
         <title>{subject.subjectName}</title>
-        <meta name='description' content='subject all the practical AIM:'/>
+        <meta name="description" content={`college practical hub ${subject.subjectName}`} />
+      </Helmet> */}
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{subject.subjectName} - {subject.subjectName} Practical</title>
+        <meta name="description" content={`Explore ${subject.subjectName} practical solutions for ${subject.subjectName} at College Practical Hub. Find a list of practicals, code ,.`} />
+
       </Helmet>
+
       <h1 className="text-2xl text-white font-semibold mb-4">
         Practicals for {subject.subjectName}
       </h1>
