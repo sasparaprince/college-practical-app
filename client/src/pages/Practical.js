@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 const Practical = () => {
   return (
     <>
+    
       <Navbar />
       <div>
         <SubjectPracticals />
