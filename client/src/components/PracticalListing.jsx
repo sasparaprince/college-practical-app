@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import Loader from './Spinner';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 const SubjectPracticals = () => {
   const { subjectId } = useParams();
@@ -48,34 +48,31 @@ const SubjectPracticals = () => {
   }, [subjectId]);
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-
+  // Modify the heading based on the presence of "theory" in the subject name
+  const modifiedHeading = subject.subjectName.includes('theory')
+    ? `Subject: ${subject.subjectName}`
+    : `Practicals for ${subject.subjectName}`;
 
   return (
     <div className="container mx-auto my-8">
-
-
-      {/* <Helmet>
-        <meta charSet="utf-8" />
-        <title>{subject.subjectName}</title>
-        <meta name="description" content={`college practical hub ${subject.subjectName}`} />
-      </Helmet> */}
-
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{subject.subjectName} - {subject.subjectName} Practical</title>
-        <meta name="description" content={`Explore ${subject.subjectName} practical solutions for ${subject.subjectName} at College Practical Hub. Find a list of practicals, code ,.`} />
-
+        <title>{subject.subjectName} - {modifiedHeading} Practical</title>
+        <meta
+          name="description"
+          content={`Explore ${subject.subjectName} practical solutions for ${subject.subjectName} at College Practical Hub. Find a list of practicals, code.`}
+        />
       </Helmet>
 
       <h1 className="text-2xl text-white font-semibold mb-4">
-        Practicals for {subject.subjectName}
+        {modifiedHeading}
       </h1>
 
       {/* Search input */}
@@ -107,15 +104,15 @@ const SubjectPracticals = () => {
           <tbody className="bg-white bg-opacity-90 divide-y divide-gray-200">
             {Array.isArray(filteredPracticals) &&
               filteredPracticals.map((practical, index) => (
-                <tr key={practical._id}>
+                <tr key={practical._id} className="group hover:bg-gray-100">
                   <td className="w-1/6 px-2 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
                     {index + 1}
                   </td>
                   <td className="w-5/6 px-4 py-3 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6">
                     <div className="whitespace-pre-wrap">{practical.aim}</div>
                   </td>
-                  <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 border text-center">
-                    {(practical._id) ? (
+                  <td className="w-1/12 px-4 py-3 sm:w-1/6 md:w-1/6 lg:w-1/6 xl:w-1/6 text-center">
+                    {practical._id ? (
                       <Link to={`/solutions/${practical._id}`}>Solution</Link>
                     ) : (
                       <span className="text-gray-400">No Solution</span>

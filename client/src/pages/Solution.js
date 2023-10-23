@@ -10,7 +10,11 @@ import NotFound from '../components/NotFound';
 import { Helmet } from 'react-helmet';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../App.css'
 
 const Solution = () => {
   const { practicalId } = useParams();
@@ -46,6 +50,11 @@ const Solution = () => {
 
     setIsCopied(true);
 
+    toast.success('Code copied to clipboard!', {
+      position: 'top-center',
+      autoClose: 2000,
+    });
+
     setTimeout(() => {
       setIsCopied(false);
     }, 2000);
@@ -71,18 +80,14 @@ const Solution = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{practical?.aim} collage practical hub</title>
+        <title>{practical?.aim} college practical hub</title>
         <meta name="description" content={practical?.aim} />
-
       </Helmet>
       <Navbar />
       <div className="container mx-auto p-4">
-        <h2 className="text-2xl text-white font-semibold mb-4">
-          Solutions for Practical 
-        </h2>
         {practical && (
-          <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-            <h3 className="text-lg font-medium mb-4">Practical Aim: {practical.aim}</h3>
+          <div className="bg-white p-4 rounded-lg shadow-md mb-4 Aim-hover">
+            <h3 className="text-lg font-medium mb-4">Topic: {practical.aim}</h3>
           </div>
         )}
         {solutions.map((solution) => (
@@ -93,11 +98,9 @@ const Solution = () => {
                 <div className="relative">
                   <button
                     onClick={() => copyCodeToClipboard(solution.solutionCode)}
-                    className={`absolute top-2 right-2 bg-blue-500 text-white p-1 rounded cursor-pointer ${
-                      isCopied ? 'bg-green-500' : ''
-                    }`}
+                    className="absolute top-2 right-2 p-1 rounded cursor-pointer icon fa-xl "
                   >
-                    {isCopied ? 'Copied!' : 'Copy'}
+                    <FontAwesomeIcon icon={faCopy} />
                   </button>
                   <SyntaxHighlighter language="c" style={prism}>
                     {solution.solutionCode}
@@ -126,20 +129,18 @@ const Solution = () => {
 
             {solution.explanation && solution.explanation.length > 0 && (
               <div className="mt-4">
-  <strong>Explanation:</strong>
-  <pre
-    className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap"
-    dangerouslySetInnerHTML={{ __html: solution.explanation }}
-  ></pre>
-</div>
-
-              
-            )
-            }
+                <strong>Explanation:</strong>
+                <pre
+                  className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap"
+                  dangerouslySetInnerHTML={{ __html: solution.explanation }}
+                ></pre>
+              </div>
+            )}
           </div>
         ))}
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

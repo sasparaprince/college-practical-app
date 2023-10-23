@@ -77,7 +77,7 @@ const SubjectListing = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {(searchQuery ? filteredSubjects : subjects).map((subject) => (
           <Link to={`/subject/${subject._id}`} key={subject._id}>
-            <div className="bg-white opacity-80 p-4 rounded-xl shadow-lg hover:shadow-slate-300">
+            <div className="bg-white opacity-80 p-4 rounded-xl shadow-lg hover:shadow-slate-300 hover:opacity-100 hover:scale-110 transition hover:-translate--1">
               <img
                 src={subject.imageUrl}
                 alt={subject.description}

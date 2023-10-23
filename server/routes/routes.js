@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Subject = require('../models/Subject');
 const Practical = require('../models/Practical');
-const Solution = require('../models/Solution');
+
 
 
 // Create a new subject

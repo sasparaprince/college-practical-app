@@ -91,10 +91,10 @@ const App = () => {
         },
         repulse: {
           distance: 200,
-          duration: 0.1,
+          duration: 0,
         },
-        bubble: { // Add the bubble mode configuration here
-          distance: 200,
+        bubble: {
+          distance: 100, // Adjust the distance for the bubble effect
           duration: 2,
           size: 20,
           opacity: 1,
@@ -105,13 +105,6 @@ const App = () => {
       color: {
         value: '#fff',
       },
-      links: {
-        color: '#fff',
-        distance: 150,
-        enable: true,
-        opacity: 0.6,
-        width: 1,
-      },
       move: {
         direction: 'none',
         enable: true,
@@ -119,7 +112,7 @@ const App = () => {
           default: 'bounce',
         },
         random: false,
-        speed: 2,
+        speed: 0.4,
         straight: false,
       },
       number: {
@@ -127,10 +120,10 @@ const App = () => {
           enable: true,
           area: 800,
         },
-        value: 80,
+        value: 100,
       },
       opacity: {
-        value: 0.5,
+        value: 1,
       },
       shape: {
         type: 'circle',
@@ -145,6 +138,7 @@ const App = () => {
     detectRetina: true,
   }}
 />
+
       </div>
     </Router>
   );
