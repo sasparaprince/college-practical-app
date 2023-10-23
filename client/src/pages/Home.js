@@ -62,7 +62,7 @@ const Home = () => {
                 </span>
               </h1>
               <Link to="/subject">
-                <button className="bg-white mt-5 hover:bg-gray-500 hover:text-white shadow-lg shadow-slate-700 text-gray-800 font-semibold w-[10rem] sm:w-[12rem] h-12 sm:h-14 py-2 px-4 border border-gray-400 rounded-xl">
+                <button className="bg-white mt-5 hover:scale-105 translate  hover:-translate-x-y-1 shadow-lg shadow-slate-700 text-gray-800 font-semibold w-[10rem] sm:w-[12rem] h-12 sm:h-14 py-2 px-4 border border-gray-400 rounded-xl">
                   Subjects
                 </button>
               </Link>

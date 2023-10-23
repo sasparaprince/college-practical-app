@@ -72,8 +72,6 @@ footer {
 .earth-container {
   width: 400px;
   height: 400px;
-
-
 }
 
 /* Media query for screens wider than 600px (adjust breakpoint as needed) */
@@ -83,7 +81,6 @@ footer {
     height: 600px;
   }
 }
-
 
 .icon:hover {
   transform: scale(1.4); /* Make the icon 10% larger on hover */
@@ -98,10 +95,10 @@ footer {
 }
 
 .hover-grow:hover {
-  transform: scale(1.1); /* Increase the size on hover (you can adjust the scale factor) */
+  transform: scale(
+    1.1
+  ); /* Increase the size on hover (you can adjust the scale factor) */
 }
-
-
 
 .whiteboard {
   display: flex;
@@ -113,3 +110,4 @@ footer {
 .canvas {
   border: 1px solid #000;
 }
+
