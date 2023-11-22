@@ -1,8 +1,10 @@
 import { Disclosure } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import mainlogo from '../img/download.webp';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import download from '../img/download.png'
+import downloadApk from '../download/college-practical-hub.apk'
 
 
 const Navbar = () => {
@@ -17,8 +19,8 @@ const Navbar = () => {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                  <Link to="/" >
-                    <img className="h-[60px] w-18" src={mainlogo} alt="Your Company" />
+                    <Link to="/" >
+                      <img className="h-[60px] w-18" src={mainlogo} alt="Your Company" />
                     </Link>
                   </div>
                   <div className="hidden md:block">
@@ -31,22 +33,22 @@ const Navbar = () => {
                         </li>
                         <li className="mr-6">
                           <Link to="/about" className="text-white hover:text-gray-300">
-                          AboutMe
+                            AboutMe
                           </Link>
                         </li>
                         <li className="mr-6">
                           <Link to="/privacy-policy" className="text-white hover:text-gray-300">
-                          PrivacyPolicy
+                            PrivacyPolicy
                           </Link>
                         </li>
                         <li className="mr-6">
                           <Link to="/contactus" className="text-white hover:text-gray-300">
-                          Contact Us
+                            Contact Us
                           </Link>
                         </li>
                         <li className="mr-6">
                           <Link to="/Whiteboard" className="text-white hover:text-gray-300">
-                          Whiteboard
+                            Whiteboard
                           </Link>
                         </li>
                       </ul>
@@ -55,15 +57,28 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button
-                      type="button"
-                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                    {/* Profile dropdown */}
+                    <a href={downloadApk} className="text-white" >
+
+                      <img
+                        className=' transition-transform transform scale-100 hover:scale-110'
+                        src={download}
+                        alt=""
+                        style={{
+                          width: '30px', // Adjust the size as needed
+                          height: '30px', // Adjust the size as needed
+                          filter: 'grayscale(100%)', // Set to grayscale for gray color
+                          transition: 'filter 0.3s',
+                          // Add a smooth transition for the hover effect
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.filter = 'grayscale(0%)'; // Remove grayscale on hover
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.filter = 'grayscale(100%)'; // Restore grayscale on mouse out
+                        }}
+                      />
+                    </a>
+
                   </div>
                 </div>
                 <div className="-mr-2 flex md:hidden">
@@ -117,9 +132,18 @@ const Navbar = () => {
                   >
                     Whiteboard
                   </Link>
-                  
-                
-               
+
+                  <div className="ml-4 flex items-center md:ml-6">
+                    <a href={downloadApk} className='content-center'>
+
+                      <button className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+                      >Download Android App </button>
+                    </a>
+
+                  </div>
+
+
+
                 </div>
               </div>
             )}
@@ -131,3 +155,18 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
