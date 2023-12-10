@@ -13,8 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import html2canvas from 'html2canvas'; // Import html2canvas
-
-
 import '../App.css';
 
 const Solution = () => {
@@ -26,18 +24,19 @@ const Solution = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`https://college-practical.vercel.app/api/practicals/${practicalId}/solutions`)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://college-practical.vercel.app/api/practicals/${practicalId}/solutions`);
         setPractical(response.data);
         setSolutions(response.data.solutions);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching solutions:', error);
-      })
-      .finally(() => {
-        setLoading(false); // Set loading to false regardless of success or failure
-      });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [practicalId]);
 
   const copyCodeToClipboard = (code) => {
@@ -73,15 +72,14 @@ const Solution = () => {
       autoClose: 2000,
     });
   };
-
+  if (loading) {
+    return <Loader />;
+  }
   if (!practical || solutions.length === 0) {
     return <NotFound />;
   }
 
-  if (loading) {
-    return <Loader />;
-  }
-
+  
 
   return (
     <>
@@ -132,20 +130,16 @@ const Solution = () => {
                   {solution.codeOutput && solution.codeOutput.length > 0 && (
                     <pre className="p-4 border rounded-lg whitespace-pre-wrap">{solution.codeOutput}</pre>
                   )}
-
                 </div>
                 <button
-              onClick={downloadImage}
-              className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              <FontAwesomeIcon icon={faDownload} className="mr-2" />
-              Download Image
-            </button>
+                  onClick={downloadImage}
+                  className="mt-2 bg-stone-900 hover:bg-stone-300 transition-transform transform text-white hover:text-stone-900 scale-95 hover:scale-100 font-bold py-2 px-4 rounded-xl"
+                >
+                  <FontAwesomeIcon icon={faDownload} className="mr-2" />
+                  Download Image
+                </button>
               </div>
             )}
-
-
-        
 
             {solution.explanation && solution.explanation.length > 0 && (
               <div className="mt-4">
