@@ -61,17 +61,56 @@ const Solution = () => {
     const outputElement = outputRef.current;
 
     html2canvas(outputElement).then((canvas) => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = 'output_image.png';
-      link.click();
-    });
+      const imageDataURL = canvas.toDataURL('image/png');
 
-    toast.success('Image downloaded!', {
-      position: 'top-center',
-      autoClose: 2000,
+      // Create a temporary link for downloading
+      const downloadLink = document.createElement('a');
+      downloadLink.href = imageDataURL;
+      downloadLink.download = 'output_image.png';
+
+      // Append the link to the document
+      document.body.appendChild(downloadLink);
+
+      // Trigger a click on the link to initiate the download
+      downloadLink.click();
+
+      // Remove the link from the document
+      document.body.removeChild(downloadLink);
+
+      toast.success('Image downloaded!', {
+        position: 'top-center',
+        autoClose: 2000,
+      });
     });
   };
+
+  const copyImageToClipboard = () => {
+    const outputElement = outputRef.current;
+  
+    html2canvas(outputElement).then((canvas) => {
+      canvas.toBlob((blob) => {
+        const clipboardData = new ClipboardItem({ 'image/png': blob });
+  
+        navigator.clipboard.write([clipboardData])
+          .then(() => {
+            toast.success('Image copied to clipboard!', {
+              position: 'top-center',
+              autoClose: 2000,
+            });
+          })
+          .catch((error) => {
+            console.error('Error copying image to clipboard:', error);
+            toast.error('Failed to copy image to clipboard', {
+              position: 'top-center',
+              autoClose: 2000,
+            });
+          });
+      }, 'image/png');
+    });
+  };
+  
+
+
   if (loading) {
     return <Loader />;
   }
@@ -79,7 +118,7 @@ const Solution = () => {
     return <NotFound />;
   }
 
-  
+
 
   return (
     <>
@@ -134,9 +173,16 @@ const Solution = () => {
                 <button
                   onClick={downloadImage}
                   className="mt-2 bg-stone-900 hover:bg-stone-300 transition-transform transform text-white hover:text-stone-900 scale-95 hover:scale-100 font-bold py-2 px-4 rounded-xl"
-                 >
+                >
                   <FontAwesomeIcon icon={faDownload} className="mr-2" />
                   Download Image
+                </button>
+                <button
+                  onClick={copyImageToClipboard}
+                  className="mt-2 bg-stone-900 hover:bg-stone-300 transition-transform transform text-white hover:text-stone-900 scale-95 hover:scale-100 font-bold py-2 px-4 rounded-xl"
+                >
+                  <FontAwesomeIcon icon={faCopy} className="mr-2" />
+                  Copy Image to Clipboard
                 </button>
               </div>
             )}
