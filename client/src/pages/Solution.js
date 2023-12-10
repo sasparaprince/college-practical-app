@@ -134,7 +134,7 @@ const Solution = () => {
                 <button
                   onClick={downloadImage}
                   className="mt-2 bg-stone-900 hover:bg-stone-300 transition-transform transform text-white hover:text-stone-900 scale-95 hover:scale-100 font-bold py-2 px-4 rounded-xl"
-                >
+                 >
                   <FontAwesomeIcon icon={faDownload} className="mr-2" />
                   Download Image
                 </button>
