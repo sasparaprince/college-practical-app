@@ -33,14 +33,10 @@ const Navbar = () => {
                         </li>
                         <li className="mr-6">
                           <Link to="/about" className="text-white hover:text-gray-300">
-                            AboutMe
+                            Developer
                           </Link>
                         </li>
-                        <li className="mr-6">
-                          <Link to="/privacy-policy" className="text-white hover:text-gray-300">
-                            PrivacyPolicy
-                          </Link>
-                        </li>
+                      
                         <li className="mr-6">
                           <Link to="/contactus" className="text-white hover:text-gray-300">
                             Contact Us
@@ -114,12 +110,7 @@ const Navbar = () => {
                   >
                     Home
                   </Link>
-                  <Link
-                    to="/privacy-policy"
-                    className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Privacy Policy
-                  </Link>
+               
                   <Link
                     to="/contactus"
                     className="text-blue-500 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -141,9 +132,6 @@ const Navbar = () => {
                     </a>
 
                   </div>
-
-
-
                 </div>
               </div>
             )}
