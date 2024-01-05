@@ -22,6 +22,8 @@ const Solution = () => {
   const [outputBackgroundBlack, setOutputBackgroundBlack] = useState(false);
   const outputRef = useRef(null);
   const [loading, setLoading] = useState(true);
+  const [explanationTheme, setExplanationTheme] = useState('light'); // 'light' or 'dark'
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,11 +88,11 @@ const Solution = () => {
 
   const copyImageToClipboard = () => {
     const outputElement = outputRef.current;
-  
+
     html2canvas(outputElement).then((canvas) => {
       canvas.toBlob((blob) => {
         const clipboardData = new ClipboardItem({ 'image/png': blob });
-  
+
         navigator.clipboard.write([clipboardData])
           .then(() => {
             toast.success('Image copied to clipboard!', {
@@ -108,7 +110,7 @@ const Solution = () => {
       }, 'image/png');
     });
   };
-  
+
 
 
   if (loading) {
@@ -117,6 +119,42 @@ const Solution = () => {
   if (!practical || solutions.length === 0) {
     return <NotFound />;
   }
+
+  const getExplanationThemeStyle = (color) => {
+    switch (color) {
+      case '#78350f':
+        return 'bg-[#78350f] text-white';
+      case '#292524':
+        return 'bg-[#292524] text-white';
+      case '#404040':
+        return 'bg-[#404040] text-white';
+      case '#fef3c7':
+        return 'bg-[#fef3c7] text-black';
+      case 'purple-500':
+        return 'bg-purple-500 text-white';
+      case 'indigo-500':
+        return 'bg-indigo-500 text-white';
+      case 'pink-500':
+        return 'bg-pink-500 text-white';
+      case 'teal-500':
+        return 'bg-teal-500 text-white';
+      case 'orange-500':
+        return 'bg-orange-500 text-white';
+      case '#164e63':
+        return 'bg-[#164e63] text-white';
+      default:
+        return 'bg-gray-200';
+    }
+  };
+
+
+
+
+
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
 
 
 
@@ -187,15 +225,29 @@ const Solution = () => {
               </div>
             )}
 
+
             {solution.explanation && solution.explanation.length > 0 && (
-              <div className="mt-4">
+              <div className={`mt-4 ${getExplanationThemeStyle(explanationTheme)}`}>
+                     <div className={`mt-2 flex space-x-2`}>
+              {['#78350f', '#292524', '#404040', '#fef3c7', 'purple-500', 'indigo-500', 'pink-500', 'teal-500', 'orange-500', '#164e63'].map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setExplanationTheme(color)}
+                  className={`rounded-full h-8 w-8 border ${getExplanationThemeStyle(color)} focus:outline-none`}
+                ></button>
+              ))}
+            </div>
                 <strong>Explanation:</strong>
+                <br />
+                <br />
                 <pre
-                  className="bg-gray-300 p-4 rounded-lg whitespace-pre-wrap"
+                  className="p-4 rounded-lg whitespace-pre-wrap"
                   dangerouslySetInnerHTML={{ __html: solution.explanation }}
                 ></pre>
               </div>
             )}
+
+       
           </div>
         ))}
       </div>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const SolutionForm = () => {
   const [subjects, setSubjects] = useState([]);
@@ -7,7 +9,7 @@ const SolutionForm = () => {
   const [practicals, setPracticals] = useState([]);
   const [selectedPracticalId, setSelectedPracticalId] = useState('');
   const [solutions, setSolutions] = useState([
-    { solutionCode: '', codeOutput: '', explanation: '' },
+    { solutionCode: '', codeOutput: '', explanation: '', imageURL: '' },
   ]);
 
   useEffect(() => {
@@ -37,13 +39,26 @@ const SolutionForm = () => {
   }, [selectedSubjectId]);
 
   const addSolution = () => {
-    setSolutions([...solutions, { solutionCode: '', codeOutput: '', explanation: '' }]);
+    setSolutions([...solutions, { solutionCode: '', codeOutput: '', explanation: '', imageURL: '' }]);
   };
 
   const handleSolutionChange = (index, field, value) => {
     const updatedSolutions = [...solutions];
     updatedSolutions[index][field] = value;
     setSolutions(updatedSolutions);
+  };
+
+  const handleImageUpload = async (index, file) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await axios.post('https://your-image-upload-api-endpoint', formData);
+
+      handleSolutionChange(index, 'imageURL', response.data.imageURL);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -110,14 +125,14 @@ const SolutionForm = () => {
           <h2 className="text-2xl text-white font-semibold mb-2">Solutions</h2>
           {solutions.map((solution, index) => (
             <div key={index} className="mb-4">
-              <h3 className="text-xl text-white font-semibold mb-2">
-                Solution {index + 1}
-              </h3>
+              <h3 className="text-xl text-white font-semibold mb-2">Solution {index + 1}</h3>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Solution Code</label>
                 <div
                   contentEditable="true"
-                  onInput={(e) => handleSolutionChange(index, 'solutionCode', e.currentTarget.innerHTML)}
+                  onInput={(e) =>
+                    handleSolutionChange(index, 'solutionCode', e.currentTarget.innerHTML)
+                  }
                   className="w-full p-2 bg-gray-200 rounded"
                   dangerouslySetInnerHTML={{ __html: solution.solutionCode }}
                 ></div>
@@ -126,19 +141,28 @@ const SolutionForm = () => {
                 <label className="block text-white font-medium mb-2">Code Output</label>
                 <div
                   contentEditable="true"
-                  onInput={(e) => handleSolutionChange(index, 'codeOutput', e.currentTarget.innerHTML)}
+                  onInput={(e) =>
+                    handleSolutionChange(index, 'codeOutput', e.currentTarget.innerHTML)
+                  }
                   className="w-full p-2 bg-gray-200 rounded"
                   dangerouslySetInnerHTML={{ __html: solution.codeOutput }}
                 ></div>
               </div>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Explanation</label>
-                <div
-                  contentEditable="true"
-                  onInput={(e) => handleSolutionChange(index, 'explanation', e.currentTarget.innerHTML)}
-                  className="w-full p-2 bg-gray-200 rounded"
-                  dangerouslySetInnerHTML={{ __html: solution.explanation }}
-                ></div>
+                <ReactQuill
+                  className='bg-white'
+                  value={solution.explanation}
+                  onChange={(value) => handleSolutionChange(index, 'explanation', value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-white font-medium mb-2">Upload Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(index, e.target.files[0])}
+                />
               </div>
             </div>
           ))}
