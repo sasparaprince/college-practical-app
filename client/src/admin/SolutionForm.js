@@ -2,6 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import 'quill/dist/quill.snow.css';
+import ImageResize from 'quill-image-resize-module-react';
+import 'react-quill/dist/quill.snow.css';
+
+const Quill = ReactQuill.Quill;
+
+Quill.register('modules/imageResize', ImageResize);
+
+const modules = {
+  toolbar: [
+    [{ header: '1' }, { header: '2' }, { font: [] }],
+    [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+    ['link', 'image', 'video'],
+    ['clean'],
+  ],
+  imageResize: {
+    displaySize: true,
+    modules: ['Resize', 'DisplaySize', 'Toolbar'],
+  },
+};
+
+const Editor = ({ onChange, value }) => {
+  const handleChange = (html) => {
+    onChange(html);
+  };
+
+  return <ReactQuill onChange={handleChange} value={value} modules={modules} />;
+};
 
 const SolutionForm = () => {
   const [subjects, setSubjects] = useState([]);
@@ -42,43 +72,95 @@ const SolutionForm = () => {
     setSolutions([...solutions, { solutionCode: '', codeOutput: '', explanation: '', imageURL: '' }]);
   };
 
-  const handleSolutionChange = (index, field, value) => {
+  const handleSolutionChange = async (index, field, value) => {
     const updatedSolutions = [...solutions];
-    updatedSolutions[index][field] = value;
+
+    if (field === 'imageURL' && value instanceof File) {
+      try {
+        const compressedImage = await resizeImage(value);
+        updatedSolutions[index][field] = compressedImage;
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
+    } else {
+      updatedSolutions[index][field] = value;
+    }
+
     setSolutions(updatedSolutions);
   };
 
-  const handleImageUpload = async (index, file) => {
-    try {
-      const formData = new FormData();
-      formData.append('image', file);
+  const resizeImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-      const response = await axios.post('https://your-image-upload-api-endpoint', formData);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
 
-      handleSolutionChange(index, 'imageURL', response.data.imageURL);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    }
+        img.onload = () => {
+          const maxWidth = 800;
+          const ratio = maxWidth / img.width;
+          const newWidth = maxWidth;
+          const newHeight = img.height * ratio;
+
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+
+          ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+          canvas.toBlob(
+            (blob) => {
+              const resizedImage = new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now(),
+              });
+              resolve(resizedImage);
+            },
+            file.type,
+            0.8
+          );
+        };
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make a POST request to create the practical with multiple solutions
+      const imageUrls = await Promise.all(
+        solutions.map(async (solution) => {
+          if (solution.imageURL instanceof File) {
+            const formData = new FormData();
+            formData.append('image', solution.imageURL);
+            const response = await axios.post('https://college-practical.vercel.app/api/upload', formData);
+            return response.data.imageUrl;
+          } else {
+            return solution.imageURL;
+          }
+        })
+      );
+
+      const updatedSolutions = solutions.map((solution, index) => ({
+        ...solution,
+        imageURL: imageUrls[index],
+      }));
+
       const response = await axios.post('https://college-practical.vercel.app/api/solutions', {
         practicalId: selectedPracticalId,
-        solutions: solutions,
+        solutions: updatedSolutions,
       });
 
-      // Handle success...
       console.log('Solutions created:', response.data);
     } catch (error) {
-      // Handle error...
       console.error('Error creating solutions:', error);
     }
   };
-
   return (
     <div className="container mx-auto my-8">
       <h1 className="text-2xl text-white font-semibold mb-4">Create a Solution</h1>
@@ -150,19 +232,7 @@ const SolutionForm = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-white font-medium mb-2">Explanation</label>
-                <ReactQuill
-                  className='bg-white'
-                  value={solution.explanation}
-                  onChange={(value) => handleSolutionChange(index, 'explanation', value)}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-white font-medium mb-2">Upload Image</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageUpload(index, e.target.files[0])}
-                />
+                <Editor onChange={(value) => handleSolutionChange(index, 'explanation', value)} value={solution.explanation} />
               </div>
             </div>
           ))}

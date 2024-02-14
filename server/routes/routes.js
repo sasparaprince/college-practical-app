@@ -1,13 +1,68 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
 const Subject = require('../models/Subject');
 const Practical = require('../models/Practical');
 
+// Set up storage for multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Specify the directory where you want to store the uploaded images
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext); // Use the current timestamp as the filename to ensure uniqueness
+  },
+});
+
+// Create an upload instance with multer configuration
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // Limit file size to 5 MB (adjust as needed)
+  },
+  fileFilter: function (req, file, cb) {
+    const allowedFileTypes = /jpeg|jpg|png|gif/;
+    const ext = path.extname(file.originalname).toLowerCase();
+    const mimetype = file.mimetype;
+
+    if (allowedFileTypes.test(ext) && allowedFileTypes.test(mimetype)) {
+      return cb(null, true);
+    }
+
+    cb(new Error('Invalid file type. Only JPEG, JPG, PNG, and GIF are allowed.'));
+  },
+});
+
+// ...
 
 
-// Create a new subject
-// Create a new subject
+// Image upload API
+// Image upload API
+router.post('/upload', upload.single('image'), (req, res) => {
+  try {
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded.' });
+    }
+
+    // Return the image URL or any other relevant information
+    const imageUrl = `/uploads/${req.file.filename}`;
+    res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+// ...
+
+module.exports = router;
+
 router.post('/subjects', async (req, res) => {
   try {
     const newSubject = new Subject({
@@ -117,24 +172,63 @@ router.get('/practicals', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-router.get('/practicals/:subjectId', async (req, res) => {
+// Modify the practicals route to handle the search query
+router.get('/:subjectId', async (req, res) => {
   try {
-    const subjectId = req.params.subjectId;
-    const practicals = await Practical.find({ subjectId });
-    const subject = await Subject.findById(subjectId);
+    const { subjectId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const searchQuery = req.query.search || ''; // Get the search query from request parameters
 
-    if (!subject) {
-      return res.status(404).json({ error: 'Subject not found' });
+    const query = { subjectId };
+    if (searchQuery) {
+      // Include the search query in the MongoDB query to filter practicals
+      query.aim = { $regex: new RegExp(searchQuery, 'i') };
     }
 
-    res.json({ subject, practicals });
-  } catch (err) {
-    console.error('Error fetching practicals:', err);
+    const practicals = await Practical.find(query)
+      .skip(skip)
+      .limit(limit);
+
+    res.json({ practicals });
+  } catch (error) {
+    console.error('Error fetching practicals:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+// Get a list of practicals by subjectId with pagination and optional search query
+router.get('/practicals/:subjectId', async (req, res) => {
+  try {
+    const { subjectId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const searchQuery = req.query.search || ''; // Get the search query from request parameters
+
+    const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const query = { subjectId };
+if (searchQuery) {
+  // Include the escaped search query in the MongoDB query to filter practicals
+  query.aim = { $regex: new RegExp(escapedSearchQuery, 'i') };
+}
+
+
+
+    const practicals = await Practical.find(query)
+      .skip(skip)
+      .limit(limit);
+
+    res.json({ practicals });
+  } catch (error) {
+    console.error('Error fetching practicals:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 
 // Create a solution
@@ -211,11 +305,6 @@ router.get('/practicals/:practicalId/solutions', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-
-
-
-
 
 
 
