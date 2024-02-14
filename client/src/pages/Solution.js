@@ -129,17 +129,17 @@ const Solution = () => {
       case '#404040':
         return 'bg-[#404040] text-white';
       case '#fef3c7':
-        return 'bg-[#fef3c7] text-black';
+        return 'bg-[#1B1A55] text-white';
       case 'purple-500':
-        return 'bg-purple-500 text-white';
+        return 'bg-[#12372A] text-white';
       case 'indigo-500':
-        return 'bg-indigo-500 text-white';
+        return 'bg-[#11235A] text-white';
       case 'pink-500':
-        return 'bg-pink-500 text-white';
+        return 'bg-[#618264] text-black';
       case 'teal-500':
-        return 'bg-teal-500 text-white';
+        return 'bg-[#362706] text-white';
       case 'orange-500':
-        return 'bg-orange-500 text-white';
+        return 'bg-[#000000] text-white';
       case '#164e63':
         return 'bg-[#164e63] text-white';
       default:
@@ -232,7 +232,7 @@ const Solution = () => {
                 <button
                   key={color}
                   onClick={() => setExplanationTheme(color)}
-                  className={`rounded-full h-8 w-8 border ${getExplanationThemeStyle(color)} focus:outline-none`}
+                  className={`rounded-full mb-4 h-8 w-20 border ${getExplanationThemeStyle(color)} focus:outline-none`}
                 ></button>
               ))}
             </div>
@@ -245,8 +245,6 @@ const Solution = () => {
                 ></pre>
               </div>
             )}
-
-       
           </div>
         ))}
       </div>
