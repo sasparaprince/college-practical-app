@@ -53,7 +53,7 @@ const Navbar = () => {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <a href={downloadApk} className="text-white" >
+                    {/* <a href={downloadApk} className="text-white" >
 
                       <img
                         className=' transition-transform transform scale-100 hover:scale-110'
@@ -73,7 +73,7 @@ const Navbar = () => {
                           e.currentTarget.style.filter = 'grayscale(100%)'; // Restore grayscale on mouse out
                         }}
                       />
-                    </a>
+                    </a> */}
 
                   </div>
                 </div>
@@ -125,11 +125,11 @@ const Navbar = () => {
                   </Link>
 
                   <div className="ml-4 flex items-center md:ml-6">
-                    <a href={downloadApk} className='content-center'>
+                    {/* <a href={downloadApk} className='content-center'>
 
                       <button className='py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
                       >Download Android App </button>
-                    </a>
+                    </a> */}
 
                   </div>
                 </div>
