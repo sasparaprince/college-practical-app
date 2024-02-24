@@ -57,7 +57,7 @@ const PracticalForm = () => {
           <label htmlFor="aim" className="block text-white">
             Aim:
           </label>
-          <input
+          <textarea
             type="text"
             name="aim"
             value={practicalData.aim}
