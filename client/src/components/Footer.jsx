@@ -8,12 +8,12 @@ const Footer = () => {
       <div className="container mx-auto">
         <div>
           <p className="text-sm">
-            &copy; {currentYear} <a href="https://college-practicals.vercel.app/">College Practical Hub</a>
+            &copy; {currentYear} <a href="https://college-practicals.vercel.app/">College Practicals Hub</a>
           </p>
         </div>
         <div>
           <p className="text-sm">
-            Not an official GTU site | For educational use only
+            This website is for informational purposes only. Any reliance you place on such information is strictly at your own risk.
           </p>
         </div>
       </div>
