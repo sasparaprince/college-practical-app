@@ -33,13 +33,13 @@ const About = () => {
                 />
               </div>
               <div className="mt-20">
-                <a href="https://www.linkedin.com/in/prince-saspara-a88130260" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/sahil-saspara-64632718b/" target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faLinkedin} className="icon fa-xl" />
                 </a>
-                <a href="https://github.com/sasparaprince" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/Roy543" target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faGithub} className="icon fa-xl" />
                 </a>
-                <a href="https://www.instagram.com/prince_saspara/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/sahilsaspara/" target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faInstagram} className="icon fa-xl" />
                 </a>
               </div>
