@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import princeimg from '../img/prince.jpeg';
+import princeimg from '../img/sahil.jpeg';
 
 // Add the imported icons to the FontAwesome library
 library.add(faLinkedin, faGithub, faInstagram);
@@ -22,7 +22,7 @@ const About = () => {
       <Navbar />
       <div className="text-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto opacity-90 bg-black shadow-lg shadow-white p-4 rounded-3xl">
-          <h1 className="text-4xl sm:text-5xl font-semibold mb-8">Prince Saspara</h1>
+          <h1 className="text-4xl sm:text-5xl font-semibold mb-8">Sahil Saspara</h1> {/* Change "Prince" to "Sahil" */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
             <div className="flex flex-col items-center">
               <div className="rounded-full overflow-hidden w-[19rem] h-[15rem] relative" style={{ zIndex: 4, position: 'relative' }}>
@@ -46,7 +46,7 @@ const About = () => {
             </div>
             <div className="mb-4 border p-2 rounded-2xl border-white">
               <p className="text-lg sm:text-lg leading-relaxed text-gray-100" style={{ fontFamily: 'font-serif' }}>
-                I'm <span className="hover:scale-110">Prince Saspara</span>, a student and MERN stack developer with a strong passion for web development. My expertise lies in front-end technologies such as HTML, CSS, and React, enabling me to craft user-friendly web applications.
+                I'm <span className="hover:scale-110">Sahil Saspara</span>, a student and MERN stack developer with a strong passion for web development. My expertise lies in front-end technologies such as HTML, CSS, and React, enabling me to craft user-friendly web applications.
 
                 On the back-end, I'm well-versed in Node.js and MongoDB, providing comprehensive full-stack solutions. I thrive in the ever-evolving world of web development, continually learning and growing.
 
