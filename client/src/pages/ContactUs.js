@@ -23,13 +23,14 @@ const Contact = () => {
   }
 
   const sendEmail = () => {
-    const subject = encodeURIComponent(params.listingName || 'Contact Request')
-    const body = encodeURIComponent(message)
-
-    const mailtoLink = `mailto:princesaspara2@gmail.com?subject=${subject}&body=${body}`
-
-    window.location.href = mailtoLink
+    const subject = encodeURIComponent(params.listingName || 'Contact Request');
+    const body = encodeURIComponent(message);
+    const recipientEmail = 'sahilsas88@gmail.com';
+    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${subject}&body=${body}`;
+    window.open(mailtoLink);
   }
+  
+  
 
   return (
     <>
